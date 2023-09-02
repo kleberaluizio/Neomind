@@ -8,7 +8,7 @@ import java.util.Objects;
 
 public class Fornecedor {
 
-    private Long id;
+    private int id;
     @NotBlank
     private String name;
     @Email(message = "E-mail inválido.")
@@ -19,7 +19,7 @@ public class Fornecedor {
 
     public Fornecedor(){};
 
-    public Fornecedor(Long id, String name, String email, String comment, String cnpj) {
+    public Fornecedor(int id, String name, String email, String comment, String cnpj) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -27,11 +27,11 @@ public class Fornecedor {
         this.cnpj = cnpj;
     }
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
