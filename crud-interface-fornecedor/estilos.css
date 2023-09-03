@@ -1,0 +1,14 @@
+.navbar {
+    background-color: #979595;
+}
+.navbar-brand img {
+    opacity: .958;
+    color: inherit;
+}
+.navbar-brand {
+    padding: .3437499977rem calc(2px + .3125rem) .3437499977rem calc(.3125rem + 2px);
+    font-size: 1.25rem;
+    white-space: nowrap;
+    line-height: 1;
+    filter: invert(100%) sepia(0) saturate(7475%) hue-rotate(355deg) brightness(101%) contrast(106%);
+}
