@@ -9,6 +9,7 @@ import java.util.List;
 
 public class FornecedorService {
 
+
     private FornecedorDAO fornecedorDAO= new FornecedorDAO(JPAUtil.getEntityManager());
 
     public List<Fornecedor> getAllFornecedores() {
