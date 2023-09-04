@@ -21,17 +21,16 @@ public class Fornecedor {
     @NotBlank
     private String cnpj;
 
-    public Fornecedor(){};
+    public Fornecedor(){
+    }
 
-    public Fornecedor(int id,
-                      @NotBlank(message = "O nome não pode estar em branco")
+    public Fornecedor(@NotBlank(message = "O nome não pode estar em branco")
                       String name,
                       @Email(message = "E-mail inválido.")
                        String email,
                       String comment,
                       @NotBlank
                       String cnpj) {
-        this.id = id;
         this.name = name;
         this.email = email;
         this.comment = comment;

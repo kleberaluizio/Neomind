@@ -36,10 +36,10 @@ public class FornecedorService {
         }
         if (fornecedor == null){
             return Response.status(Response.Status.BAD_REQUEST)
-                    .entity("O cnpj informado já existe em nosso banco de dados")
+                    .entity("Operação inválida, o cnpj informado já existe!")
                     .build();
         }
-        //
+
         try {
             fornecedorDAO.create(fornecedor);
             return Response.status(Response.Status.CREATED).entity(fornecedor).build();
