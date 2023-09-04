@@ -44,6 +44,13 @@ public class FornecedorResource {
     public Response update(@PathParam("id") int id, Fornecedor fornecedor){
         return fornecedorService.updateFornecedor(id, fornecedor);
     }
+    //test
+    @PUT
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response update(Fornecedor fornecedor){
+        return fornecedorService.updateFornecedor(fornecedor);
+    }
 
     //DELETE
     @DELETE

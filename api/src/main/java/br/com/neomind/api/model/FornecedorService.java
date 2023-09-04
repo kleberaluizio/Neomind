@@ -63,6 +63,22 @@ public class FornecedorService {
         }
     }
 
+    //test
+    public Response updateFornecedor(Fornecedor fornecedor) {
+        Fornecedor f = fornecedorDAO.findByCnpj(fornecedor.getCnpj());
+
+        if(f == null){
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+        try {
+            fornecedor.setId(f.getId());
+            fornecedorDAO.update(fornecedor);
+            return Response.status(Response.Status.OK).entity(fornecedor).build();
+        } catch (Exception e){
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
+        }
+    }
+
     public Response deleteFornecedorById(int id) {
         Fornecedor f = fornecedorDAO.findById(id);
 
