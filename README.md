@@ -32,7 +32,7 @@ Decisão Tomada:
 
 * Assumi que houve um erro de digitação e tomei como verdades as premissas abaixo:
 	- 0:00h possui um ângulo de 0º.
-	- 00:15h possui um ângulo de 45º.
+	- 00:15h possui um ângulo de 90º.
 	- 00:30h possui um ângulo de 180º
 
 
