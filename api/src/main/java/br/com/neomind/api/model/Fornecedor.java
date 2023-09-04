@@ -2,7 +2,6 @@ package br.com.neomind.api.model;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -14,7 +13,7 @@ public class Fornecedor {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-    @NotBlank
+    @NotBlank(message = "O nome não pode estar em branco")
     private String name;
     @Email(message = "E-mail inválido.")
     private String email;
@@ -24,7 +23,14 @@ public class Fornecedor {
 
     public Fornecedor(){};
 
-    public Fornecedor(int id, String name, String email, String comment, String cnpj) {
+    public Fornecedor(int id,
+                      @NotBlank(message = "O nome não pode estar em branco")
+                      String name,
+                      @Email(message = "E-mail inválido.")
+                       String email,
+                      String comment,
+                      @NotBlank
+                      String cnpj) {
         this.id = id;
         this.name = name;
         this.email = email;

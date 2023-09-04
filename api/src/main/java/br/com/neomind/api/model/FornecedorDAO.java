@@ -4,6 +4,7 @@ import br.com.neomind.api.model.Fornecedor;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
 import java.util.List;
 
@@ -25,6 +26,18 @@ public class FornecedorDAO {
     public Fornecedor findById(int id){
         return this.em.find(Fornecedor.class,id);
     }
+    //
+    public Fornecedor findByCnpj(String cnpj){
+        String JPQL = "SELECT p FROM Fornecedor p WHERE p.cnpj = :cnpj";
+        try {
+            return em.createQuery(JPQL, Fornecedor.class)
+                    .setParameter("cnpj", cnpj)
+                    .getSingleResult();
+        } catch (NoResultException e){
+            return null;
+        }
+    }
+    //
     public List<Fornecedor> findAll(){
         String JPQL = "SELECT p FROM Fornecedor p";
         return em.createQuery(JPQL).getResultList();
