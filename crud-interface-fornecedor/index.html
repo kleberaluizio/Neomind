@@ -9,11 +9,14 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <link rel="stylesheet" href="./estilos.css">
+    <!--Angular js-->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <script src="./consume-jaxrs-api.js"></script>
 </head>
 
-<body>
+<body  ng-app="fornecedor-neomind"  ng-controller="fornecedoresCtrl">
 
-    <nav class="navbar navbar-expand">
+    <nav class="navbar navbar-expand bg-black text-bg-dark">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">
                 <h1><img width="170" height="31"
@@ -37,12 +40,14 @@
         </div>
     </nav>
 
+    <h3 class="text-center p-2">Lista de Fornecedores</h3>
+
     <div class="container">
         <div class="reglist">
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th>#</th>
+                        <th>ID</th>
                         <th>Nome</th>
                         <th>Email</th>
                         <th>Commentário</th>
@@ -52,19 +57,23 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let registration of registrations; let i = index">
-                        <th scope="row">{{ i + 1 }}</th>
-                        <td>{{ registration.firstName }}</td>
-                        <td>{{ registration.email }}</td>
-                        <td>{{ registration.lastName }}</td>
-                        <td>{{ registration.lastName }}</td>
-                        <td>
-                            <button type="button" class="btn btn-info" (click)="onEdit(i)">Edit</button>
-                        </td>
-                        <td>
-                            <button type="button" class="btn btn-danger" (click)="onDelete(i)">Delete</button>
-                        </td>
-                    </tr>
+                    <div ng-controller="fornecedoresCtrl" >
+                        <div >
+                            <tr ng-repeat="fornecedor in fornecedores" >
+                                <td>{{fornecedor.id}}</td>
+                                <td>{{ fornecedor.name}}</td>
+                                <td>{{ fornecedor.email }}</td>
+                                <td>{{ fornecedor.comment }}</td>
+                                <td>{{ fornecedor.cnpj }}</td>
+                                <td>
+                                    <button type="button" class="btn btn-info" (click)="onEdit(i)">Edit</button>
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-danger" (click)="onDelete(i)">Delete</button>
+                                </td>
+                            </tr>
+                        </div>
+                    </div>
                 </tbody>
             </table>
             <div class="text-right">
@@ -72,43 +81,48 @@
             </div>
         </div>
         <br>
-        <div class="regentry " *ngIf="showNew">
+        <h3 class="text-center">Cadastro e atualização:</h3>
+
+        <div class="regentry" *ngIf="showNew">
             <form (ngSubmit)="onSave()">
                 <div class="inputs row gap-2">
                     <div class="form-group row">
                         <label for="nome-input" class="col-2 col-form-label">Nome</label>
                         <div class="col-10">
-                            <input class="form-control" type="text" [(ngModel)]="regModel.firstName" name="firstName">
+                            <input class="form-control" type="text" [(ngModel)]="novoFornecedor.name" name="name">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="email-input" class="col-2 col-form-label">Email</label>
                         <div class="col-10">
-                            <input class="form-control" type="email" [(ngModel)]="regModel.email" name="email">
+                            <input class="form-control" type="email" [(ngModel)]="novoFornecedor.email" name="email">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="comment-input" class="col-2 col-form-label">Comentário</label>
                         <div class="col-10">
-                            <input class="form-control" type="text" [(ngModel)]="regModel.lastName" name="lastName">
+                            <input class="form-control" type="text" [(ngModel)]="novoFornecedor.comment" name="comment">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="cnpj-input" class="col-2 col-form-label">CNPJ</label>
                         <div class="col-10">
-                            <input class="form-control" type="text" [(ngModel)]="regModel.lastName" name="lastName">
+                            <input class="form-control" type="text" [(ngModel)]="novoFornecedor.cnpj" name="cnpj">
                         </div>
                     </div>
                 </div>
-
+    
                 <div class="py-4">
-                    <button type="submit" class="btn btn-success">{{submitType}}</button>
+                    <button type="submit" id="insertFornecedor" value="submit" class="btn btn-success">{{submitType}}</button>
                     <button type="submit" class="btn btn-primary" (click)="onCancel()">Cancel</button>
                 </div>
             </form>
         </div>
     </div>
 
+    <footer class="text-center bg-black text-bg-dark gap-1">
+        <p class="py-5">2023 <i class="bi bi-c-circle"></i> - Desenvolvido por Kleber Aluizio | Teste técnico Neomind.</p>
+    </footer>
 </body>
 
 </html>

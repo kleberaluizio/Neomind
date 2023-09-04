@@ -1,0 +1,87 @@
+<div class="container">
+    <div class="reglist">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Nome</th>
+                    <th>Email</th>
+                    <th>Commentário</th>
+                    <th>CNPJ</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <div ng-controller="FornecedoresCtrl">
+                    <div ng-repeat="fornecedor in fornecedores">
+                        <tr *ngFor="let fornecedor of fornecedores; let i = index">
+                            <th scope="row">{{ i + 1 }}</th>
+                            <td>{{ fornecedor.name}}</td>
+                            <td>{{ fornecedor.email }}</td>
+                            <td>{{ fornecedor.comment }}</td>
+                            <td>{{ fornecedor.cnpj }}</td>
+                            <td>
+                                <button type="button" class="btn btn-info" (click)="onEdit(i)">Edit</button>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-danger" (click)="onDelete(i)">Delete</button>
+                            </td>
+                        </tr>
+                    </div>
+                </div>
+            </tbody>
+        </table>
+        <div class="text-right">
+            <button type="submit" class="btn btn-primary" (click)="onNew()">New</button>
+        </div>
+    </div>
+    <br>
+    <div class="regentry" *ngIf="showNew">
+        <form (ngSubmit)="onSave()">
+            <div class="inputs row gap-2">
+                <div class="form-group row">
+                    <label for="nome-input" class="col-2 col-form-label">Nome</label>
+                    <div class="col-10">
+                        <input class="form-control" type="text" [(ngModel)]="novoFornecedor.name" name="name">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="email-input" class="col-2 col-form-label">Email</label>
+                    <div class="col-10">
+                        <input class="form-control" type="email" [(ngModel)]="novoFornecedor.email" name="email">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="comment-input" class="col-2 col-form-label">Comentário</label>
+                    <div class="col-10">
+                        <input class="form-control" type="text" [(ngModel)]="novoFornecedor.comment" name="commet">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="cnpj-input" class="col-2 col-form-label">CNPJ</label>
+                    <div class="col-10">
+                        <input class="form-control" type="text" [(ngModel)]="novoFornecedor.cnpj" name="cnpj">
+                    </div>
+                </div>
+            </div>
+
+            <div class="py-4">
+                <button type="submit" class="btn btn-success">{{submitType}}</button>
+                <button type="submit" class="btn btn-primary" (click)="onCancel()">Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<div ng-controller="fornecedoresCtrl">
+
+    <ul>
+        <li ng-repeat="fornecedor in fornecedores">
+            {{fornecedor.name + "      "+  fornecedor.cnpj}}
+        </li>
+    </ul>
+
+</div>
+

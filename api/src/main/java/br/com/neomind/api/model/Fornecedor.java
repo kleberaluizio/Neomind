@@ -84,4 +84,13 @@ public class Fornecedor {
     public int hashCode() {
         return Objects.hash(cnpj);
     }
+
+    @Override
+    public String toString() {
+        return "Fornecedor{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", cnpj='" + cnpj + '\'' +
+                '}';
+    }
 }
