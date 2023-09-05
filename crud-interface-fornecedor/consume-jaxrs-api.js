@@ -48,7 +48,7 @@ app.controller('fornecedoresCtrl', function ($scope, $http) {
         }).then(function (response) {
             $scope.fornecedores = response.data;
         }, function () {
-            alert("Ocorreu um erro no GET!");
+            swal("Não foi possível coletar os dados dos fornecedores, verifique sua conexão!", "", "warning");
         })
     };
 
