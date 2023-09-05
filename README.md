@@ -13,10 +13,9 @@ Neste desafio eu criei um API REST para devolver os dados de fornecedores, e ain
 * Grizzly (Servidor)
 * Controle de versão (Git);
 
-### Dúvidas
-Dúvida: O formato do cnpj informado no objeto da premissa 2 está incorreto.
+<b>Dúvida:</b> O formato do cnpj informado no objeto da premissa 2 está incorreto.
 
-Decisão tomada: Considerei que o formato foi indicado dessa forma para avaliar como seria feita a validação do mesmo. 
+<b>Decisão tomada:</b> Considerei que o formato foi indicado dessa forma para avaliar como seria feita a validação do mesmo. 
 
 ## Desafio 2: Programação Front-end
 Neste desafio eu criei uma interface para apresentar os dados de fornecedores, requisitando os mesmo a partir da API REST criada no desafio 1. A interface permite realizar operações de criação, edição e exclusão de fornecedores. 
@@ -34,20 +33,21 @@ Neste desafio eu criei uma interface para apresentar os dados de fornecedores, r
 
 O desafio foi realizado em Java e durante sua implementação surgiu a seguinte dúvida em relação a primeira premissa.
 
-Premissa:
-* 00:00h possui um ângulo de 0º.
-* 00:15h possui um ângulo de 45º.
-* 00:30h possui um ângulo de 180º
+<b>Dúvida:</b> A premissa 1 está correta? Visto que o valor do ângulo indicado para 00:15h não varia da forma esperada em relação a um relógico real. 
 
-Dúvida:
-* A premissa 1 está correta? Visto que o valor do ângulo indicado para 00:15h não varia da forma esperada em relação a um relógico real. 
+* Premissa:
+	* 00:00h possui um ângulo de 0º.
+	* 00:15h possui um ângulo de 45º.
+	* 00:30h possui um ângulo de 180º
 
-Decisão Tomada:
 
-* Assumi que houve um erro de digitação e tomei como verdade o observado em um relógio real:
-	- 00:00h possui um ângulo de 0º.
-	- 00:15h possui um ângulo de 90º.
-	- 00:30h possui um ângulo de 180º
+<b>Decisão Tomada:</b> Assumi que houve um erro de digitação e tomei como verdade o observado em um relógio real:
+
+ * Premissa atualizada:
+	* 00:00h possui um ângulo de 0º.
+	* 00:15h possui um ângulo de 45º.
+	* 00:30h possui um ângulo de 180º
+
 
 
 
