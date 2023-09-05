@@ -3,6 +3,7 @@ package br.com.neomind.api.controller;
 import br.com.neomind.api.model.Fornecedor;
 import br.com.neomind.api.model.FornecedorDTO;
 import br.com.neomind.api.service.FornecedorService;
+import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;

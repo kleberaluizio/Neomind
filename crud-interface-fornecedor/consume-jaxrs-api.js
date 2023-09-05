@@ -3,7 +3,7 @@ var app = angular.module('fornecedor-neomind', []);
 app.controller('fornecedoresCtrl', function ($scope, $http) {
 
     //CREATE
-    $scope.InsertFornecedor = function (Fname, Femail, Fcomment, Fcnpj) {
+    $scope.InsertFornecedor = function (Fname, Femail, Fcomment, Fcnpj,Fid) {
         var type = document.getElementById("insertFornecedor").getAttribute("value");
 
         var fornecedor = { name: Fname, email: Femail, comment: Fcomment, cnpj: Fcnpj};
@@ -11,8 +11,6 @@ app.controller('fornecedoresCtrl', function ($scope, $http) {
         if(!$scope.formulario.$valid){
             return;
         }
-
-
         
         if (type == "submit") {
             $http({
@@ -26,11 +24,11 @@ app.controller('fornecedoresCtrl', function ($scope, $http) {
                 $scope.CleanData();
                 document.getElementById("insertFornecedor").setAttribute("value","submit");
             })
-        } else { //UPDATE
+        } else { //UPDATE 
             document.getElementById("insertFornecedor").setAttribute("value","submit");
             $http({
                 method: "put",
-                url: "http://localhost:8080/fornecedor/",
+                url: "http://localhost:8080/fornecedor/" + Fid,
                 datatype: "json",
                 data: JSON.stringify(fornecedor)
             }).then(function (response) {
@@ -62,6 +60,8 @@ app.controller('fornecedoresCtrl', function ($scope, $http) {
         $scope.Femail= fornecedor.email;
         $scope.Fcomment= fornecedor.comment;
         $scope.Fcnpj= fornecedor.cnpj;
+        $scope.Fid= fornecedor.id;
+        console.log($scope.Fid);
         document.getElementById("insertFornecedor").setAttribute("value","Update");
     }
 

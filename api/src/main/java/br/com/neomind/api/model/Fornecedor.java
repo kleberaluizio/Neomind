@@ -2,6 +2,7 @@ package br.com.neomind.api.model;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -19,6 +20,7 @@ public class Fornecedor {
     private String email;
     private String comment;
     @NotBlank
+    @Pattern(regexp = "^\\d{2}\\.\\d{3}/\\d{4}-\\d{2}$")
     private String cnpj;
 
     public Fornecedor(){
@@ -33,6 +35,7 @@ public class Fornecedor {
                        String email,
                       String comment,
                       @NotBlank
+                      @Pattern(regexp = "^\\d{2}\\.\\d{3}/\\d{4}-\\d{2}$")
                       String cnpj) {
         this.name = name;
         this.email = email;

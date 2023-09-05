@@ -7,6 +7,7 @@ import br.com.neomind.api.util.JPAUtil;
 import jakarta.ws.rs.core.Response;
 
 import java.util.List;
+import java.util.regex.Pattern;
 
 public class FornecedorService {
 
@@ -41,9 +42,14 @@ public class FornecedorService {
                     .build();
         }
 
-        System.out.println(fornecedorDTO);
         Fornecedor novoFornecedor = new Fornecedor(fornecedorDTO);
-        System.out.println(novoFornecedor);
+
+        Boolean emailIsValid = Pattern.compile("^(.+)@(\\S+)$").matcher(novoFornecedor.getEmail()).matches();
+        if(!emailIsValid){
+            return Response.status(Response.Status.BAD_REQUEST)
+                    .entity("Operação inválida, formato de e-mail inadequado!")
+                    .build();
+        }
 
         try {
             fornecedorDAO.create(novoFornecedor);

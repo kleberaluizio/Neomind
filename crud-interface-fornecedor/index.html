@@ -9,9 +9,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <link rel="stylesheet" href="./estilos.css">
-    <!--Angular js-->
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
-    <!--Alertas personalizados-->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/cleave.js/1.0.2/cleave.min.js"></script>
     <script src="./consume-jaxrs-api.js"></script>
@@ -39,10 +37,10 @@
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th>Nome</th>
-                    <th>Email</th>
+                    <th>Nome do Fornecedor</th>
+                    <th>E-mail</th>
                     <th>Commentário</th>
-                    <th scope="col-1">CNPJ</th>
+                    <th class="col-1">CNPJ</th>
                     <th class="text-center"> Acões</th>
                 </tr>
             </thead>
@@ -74,7 +72,7 @@
             <form ng-reset="CleanData()" name="formulario">
                 <div class="inputs row gap-2">
                     <div class="form-group row">
-                        <label for="nome-input" class="col-2 col-form-label">Nome</label>
+                        <label for="nome-input" class="col-2 col-form-label">Nome do Fornecedor</label>
                         <div class="col-10">
                             <input class="form-control" type="text" ng-model="Fname" required
                             oninvalid="this.setCustomValidity('Campo obrigatório!')" 
@@ -82,7 +80,7 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="email-input" class="col-2 col-form-label">Email</label>
+                        <label for="email-input" class="col-2 col-form-label">Endereço de e-mail</label>
                         <div class="col-10">
                             <input class="form-control" type="email" placeholder="gandalf@email.com" ng-model="Femail" required 
                             oninvalid="this.setCustomValidity('Por favor, insira um e-mail válido. (exemplo@email.com)')" 
@@ -103,19 +101,20 @@
                             onchange="try{setCustomValidity('')}catch(e){}" pattern=".{14}">
                         </div>
                     </div>
+                    <input type="hidden" ng-model="Fid">
                 </div>
           
 
                 <div class="py-4">
                     <button type="submit" id="insertFornecedor" value="submit"
-                        ng-click="InsertFornecedor(Fname,Femail,Fcomment,Fcnpj,id)" class="btn btn-success">Enviar</button>
+                        ng-click="InsertFornecedor(Fname,Femail,Fcomment,Fcnpj,Fid)" class="btn btn-success">Enviar</button>
                     <button type="reset" class="btn btn-primary" ng-click="CleanData()">Cancelar</button>
                 </div>
             </form>
     </div>
 
-    <footer class="footer_bar text-center bg-black text-bg-dark gap-1">
-        <p class="py-5">2023 <i class="bi bi-c-circle"></i> - Desenvolvido por Kleber Aluizio  - <a href="https://github.com/kleberaluizio">Github</a> 
+    <footer class="footer_bar text-center bg-black text-bg-dark gap-1 pb-0">
+        <p class="py-3 ">2023 <i class="bi bi-c-circle"></i> - Desenvolvido por Kleber Aluizio  - <a href="https://github.com/kleberaluizio">Github</a> 
         </p>
     </footer>
 
