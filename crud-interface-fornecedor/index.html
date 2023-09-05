@@ -11,8 +11,9 @@
     <link rel="stylesheet" href="./estilos.css">
     <!--Angular js-->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
-
+    <!--Alertas personalizados-->
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cleave.js/1.0.2/cleave.min.js"></script>
     <script src="./consume-jaxrs-api.js"></script>
 </head>
 
@@ -70,18 +71,22 @@
     <div class="container">
         <h3 class="text-center">Cadastro e atualização:</h3>
 
-            <form ng-submit="CleanData()">
+            <form ng-reset="CleanData()" name="formulario">
                 <div class="inputs row gap-2">
                     <div class="form-group row">
                         <label for="nome-input" class="col-2 col-form-label">Nome</label>
                         <div class="col-10">
-                            <input class="form-control" type="text" ng-model="Fname">
+                            <input class="form-control" type="text" ng-model="Fname" required
+                            oninvalid="this.setCustomValidity('Campo obrigatório!')" 
+                            onchange="try{setCustomValidity('')}catch(e){}">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="email-input" class="col-2 col-form-label">Email</label>
                         <div class="col-10">
-                            <input class="form-control" type="email" ng-model="Femail">
+                            <input class="form-control" type="email" placeholder="gandalf@email.com" ng-model="Femail" required 
+                            oninvalid="this.setCustomValidity('Por favor, insira um e-mail válido. (exemplo@email.com)')" 
+                            onchange="try{setCustomValidity('')}catch(e){}">
                         </div>
                     </div>
                     <div class="form-group row">
@@ -93,7 +98,9 @@
                     <div class="form-group row">
                         <label for="cnpj-input" class="col-2 col-form-label">CNPJ</label>
                         <div class="col-10">
-                            <input class="form-control" type="text" ng-model="Fcnpj">
+                            <input class="form-control cnpj" type="text" ng-model="Fcnpj" required
+                            oninvalid="this.setCustomValidity('Por favor, insira um cnpj válido.')" 
+                            onchange="try{setCustomValidity('')}catch(e){}" pattern=".{14}">
                         </div>
                     </div>
                 </div>
@@ -102,7 +109,7 @@
                 <div class="py-4">
                     <button type="submit" id="insertFornecedor" value="submit"
                         ng-click="InsertFornecedor(Fname,Femail,Fcomment,Fcnpj,id)" class="btn btn-success">Enviar</button>
-                    <button type="submit" class="btn btn-primary" ng-click="CleanData()">Cancelar</button>
+                    <button type="reset" class="btn btn-primary" ng-click="CleanData()">Cancelar</button>
                 </div>
             </form>
     </div>
@@ -111,6 +118,15 @@
         <p class="py-5">2023 <i class="bi bi-c-circle"></i> - Desenvolvido por Kleber Aluizio  - <a href="https://github.com/kleberaluizio">Github</a> 
         </p>
     </footer>
+
+
+    <script>
+        new Cleave('.cnpj', {
+        blocks: [2, 3, 4, 2],
+        delimiters: ['.', '/', '-'],
+        numericOnly: true
+        });
+    </script>
 </body>
 
 </html>

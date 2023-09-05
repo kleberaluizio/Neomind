@@ -85,12 +85,12 @@ public class Fornecedor {
         if (this == object) return true;
         if (object == null || getClass() != object.getClass()) return false;
         Fornecedor that = (Fornecedor) object;
-        return Objects.equals(cnpj, that.cnpj);
+        return id == that.id && Objects.equals(name, that.name) && Objects.equals(email, that.email) && Objects.equals(comment, that.comment) && Objects.equals(cnpj, that.cnpj);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(cnpj);
+        return Objects.hash(id, name, email, comment, cnpj);
     }
 
     @Override

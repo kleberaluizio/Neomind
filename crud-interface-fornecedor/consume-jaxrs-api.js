@@ -8,7 +8,11 @@ app.controller('fornecedoresCtrl', function ($scope, $http) {
 
         var fornecedor = { name: Fname, email: Femail, comment: Fcomment, cnpj: Fcnpj};
 
-        $scope.VerificarCnpj(fornecedor);
+        if(!$scope.formulario.$valid){
+            return;
+        }
+
+
         
         if (type == "submit") {
             $http({
@@ -64,8 +68,6 @@ app.controller('fornecedoresCtrl', function ($scope, $http) {
     // DELETE
     $scope.DeleteFornecedor = function(idvalue){
 
-        // $scope.ConfirmarExclusao();
-
         var apiUrL = "http://localhost:8080/fornecedor/";
         $http({
             method: "delete",
@@ -98,38 +100,6 @@ app.controller('fornecedoresCtrl', function ($scope, $http) {
         $scope.Fcomment= " ";
         $scope.Fcnpj= " ";
         $scope.reloadRoute();
-    }
-
-    $scope.VerificarCnpj = function(fornecedor){
-
-        if(fornecedor.cnpj == null){
-            swal("", "O cpnj deve ser informado!", "warning");
-            $scope.Fname = fornecedor.name;
-            $scope.Femail= fornecedor.email;
-            $scope.Fcomment= fornecedor.comment;
-            $scope.Fcnpj= fornecedor.cnpj;
-            return;
-        }
-    }
-
-    $scope.ConfirmarExclusao = function(){
-
-        swal({
-            title: "Tem certeza?",
-            text: "Não será possível reaver as informações apagadas!",
-            icon: "warning",
-            buttons: true,
-            dangerMode: true,
-          })
-          .then((willDelete) => {
-            if (willDelete) {
-              swal("Exclusão realizada com sucesso!", {
-                icon: "success",
-              });
-            } else {
-              return;
-            }
-          });
     }
   
 });

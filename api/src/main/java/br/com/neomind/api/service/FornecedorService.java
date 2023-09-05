@@ -28,7 +28,6 @@ public class FornecedorService {
 
     public Response createFornecedor(FornecedorDTO fornecedorDTO) {
 
-
         Fornecedor f = fornecedorDAO.findByCnpj(fornecedorDTO.getCnpj());
 
         if(f != null || fornecedorDTO.getCnpj() == null){
@@ -56,12 +55,13 @@ public class FornecedorService {
 
     public Response updateFornecedor(int id, Fornecedor fornecedor) {
         Fornecedor f = fornecedorDAO.findById(id);
+        fornecedor.setId(id);
 
         if(f == null){
             return Response.status(Response.Status.NOT_FOUND).build();
         }
+
         try {
-            fornecedor.setId(id);
             fornecedorDAO.update(fornecedor);
             return Response.status(Response.Status.OK).entity(fornecedor).build();
         } catch (Exception e){
