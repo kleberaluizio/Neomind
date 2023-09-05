@@ -1,4 +1,4 @@
-package br.com.neomind.api.model;
+package br.com.neomind.api.dao;
 
 import br.com.neomind.api.model.Fornecedor;
 

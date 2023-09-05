@@ -1,9 +1,9 @@
-package br.com.neomind.api.model;
+package br.com.neomind.api.service;
 
+import br.com.neomind.api.model.Fornecedor;
+import br.com.neomind.api.dao.FornecedorDAO;
 import br.com.neomind.api.util.JPAUtil;
 import jakarta.ws.rs.core.Response;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 
 import java.util.List;
 
@@ -27,17 +27,17 @@ public class FornecedorService {
 
     public Response createFornecedor(Fornecedor fornecedor) {
 
-        //
+
         Fornecedor f = fornecedorDAO.findByCnpj(fornecedor.getCnpj());
 
         if(f != null){
             return Response.status(Response.Status.BAD_REQUEST)
-                    .entity("O cnpj informado já existe em nosso banco de dados")
+                    .entity("Operação inválida, o cnpj informado já existe!")
                     .build();
         }
         if (fornecedor == null){
             return Response.status(Response.Status.BAD_REQUEST)
-                    .entity("Operação inválida, o cnpj informado já existe!")
+                    .entity("Operação inválida, campos em branco")
                     .build();
         }
 
@@ -64,7 +64,6 @@ public class FornecedorService {
         }
     }
 
-    //test
     public Response updateFornecedor(Fornecedor fornecedor) {
         Fornecedor f = fornecedorDAO.findByCnpj(fornecedor.getCnpj());
 
