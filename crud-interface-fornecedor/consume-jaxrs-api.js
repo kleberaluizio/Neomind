@@ -5,7 +5,11 @@ app.controller('fornecedoresCtrl', function ($scope, $http) {
     //CREATE
     $scope.InsertFornecedor = function (Fname, Femail, Fcomment, Fcnpj) {
         var type = document.getElementById("insertFornecedor").getAttribute("value");
+
         var fornecedor = { name: Fname, email: Femail, comment: Fcomment, cnpj: Fcnpj};
+
+        $scope.VerificarCnpj(fornecedor);
+        
         if (type == "submit") {
             $http({
                 method: "post",
@@ -13,7 +17,7 @@ app.controller('fornecedoresCtrl', function ($scope, $http) {
                 datatype: "json",
                 data: JSON.stringify(fornecedor)
             }).then(function (response) {
-                alert("Fornecedor cadastrado com sucesso");
+                swal("Fornecedor cadastrado com sucesso!", "", "success");
                 $scope.getAllFornecedores();
                 $scope.CleanData();
                 document.getElementById("insertFornecedor").setAttribute("value","submit");
@@ -26,7 +30,7 @@ app.controller('fornecedoresCtrl', function ($scope, $http) {
                 datatype: "json",
                 data: JSON.stringify(fornecedor)
             }).then(function (response) {
-                alert("Fornecedor atualizado com sucesso");
+                swal("Fornecedor atualizado com sucesso!", "", "success");
                 $scope.getAllFornecedores();
                 $scope.CleanData();
             })
@@ -59,6 +63,9 @@ app.controller('fornecedoresCtrl', function ($scope, $http) {
 
     // DELETE
     $scope.DeleteFornecedor = function(idvalue){
+
+        // $scope.ConfirmarExclusao();
+
         var apiUrL = "http://localhost:8080/fornecedor/";
         $http({
             method: "delete",
@@ -66,8 +73,8 @@ app.controller('fornecedoresCtrl', function ($scope, $http) {
             datatype: "json",
             data: JSON.stringify($scope.fornecedor)
         }).then(function (response) {
-            alert("Exclusão realizada com sucesso!");
             $scope.getAllFornecedores();
+            swal("Exclusão realizada com sucesso!", "", "success");
             $scope.reloadRoute();
             $scope.Fname = " ";
             $scope.Femail= " ";
@@ -76,20 +83,8 @@ app.controller('fornecedoresCtrl', function ($scope, $http) {
             document.getElementById("deleteFornecedor").setAttribute("value","Delete")
         })
     }
-    // Criando novo fornecedor 
 
 
-
-    
-
-
-
-
-
-
-
-    
-    
 
     $scope.reloadRoute = function() {
         $window.location.reload();
@@ -103,6 +98,38 @@ app.controller('fornecedoresCtrl', function ($scope, $http) {
         $scope.Fcomment= " ";
         $scope.Fcnpj= " ";
         $scope.reloadRoute();
+    }
+
+    $scope.VerificarCnpj = function(fornecedor){
+
+        if(fornecedor.cnpj == null){
+            swal("", "O cpnj deve ser informado!", "warning");
+            $scope.Fname = fornecedor.name;
+            $scope.Femail= fornecedor.email;
+            $scope.Fcomment= fornecedor.comment;
+            $scope.Fcnpj= fornecedor.cnpj;
+            return;
+        }
+    }
+
+    $scope.ConfirmarExclusao = function(){
+
+        swal({
+            title: "Tem certeza?",
+            text: "Não será possível reaver as informações apagadas!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+          })
+          .then((willDelete) => {
+            if (willDelete) {
+              swal("Exclusão realizada com sucesso!", {
+                icon: "success",
+              });
+            } else {
+              return;
+            }
+          });
     }
   
 });

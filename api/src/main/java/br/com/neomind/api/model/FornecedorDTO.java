@@ -3,42 +3,32 @@ package br.com.neomind.api.model;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 
-import javax.persistence.*;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.util.Objects;
 
-@Entity
-@Table(name = "fornecedores")
-public class Fornecedor {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+public class FornecedorDTO {
     private int id;
-    @NotBlank(message = "O nome não pode estar em branco")
     private String name;
-    @Email(message = "E-mail inválido.")
     private String email;
     private String comment;
-    @NotBlank
     private String cnpj;
 
-    public Fornecedor(){
-    }
-    public Fornecedor(FornecedorDTO dto){
-        this(dto.getName(), dto.getEmail(), dto.getComment(), dto.getCnpj());
+    public FornecedorDTO(){
     }
 
-    public Fornecedor(@NotBlank(message = "O nome não pode estar em branco")
+    public FornecedorDTO(
                       String name,
-                      @Email(message = "E-mail inválido.")
-                       String email,
+                      String email,
                       String comment,
-                      @NotBlank
                       String cnpj) {
         this.name = name;
         this.email = email;
         this.comment = comment;
         this.cnpj = cnpj;
     }
+
 
     public int getId() {
         return id;
@@ -81,23 +71,12 @@ public class Fornecedor {
     }
 
     @Override
-    public boolean equals(Object object) {
-        if (this == object) return true;
-        if (object == null || getClass() != object.getClass()) return false;
-        Fornecedor that = (Fornecedor) object;
-        return Objects.equals(cnpj, that.cnpj);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(cnpj);
-    }
-
-    @Override
     public String toString() {
-        return "Fornecedor{" +
+        return "FornecedorDTO{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", comment='" + comment + '\'' +
                 ", cnpj='" + cnpj + '\'' +
                 '}';
     }

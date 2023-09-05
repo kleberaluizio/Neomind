@@ -2,6 +2,7 @@ package br.com.neomind.api.service;
 
 import br.com.neomind.api.model.Fornecedor;
 import br.com.neomind.api.dao.FornecedorDAO;
+import br.com.neomind.api.model.FornecedorDTO;
 import br.com.neomind.api.util.JPAUtil;
 import jakarta.ws.rs.core.Response;
 
@@ -25,25 +26,29 @@ public class FornecedorService {
         return Response.status(Response.Status.OK).entity(f).build();
     }
 
-    public Response createFornecedor(Fornecedor fornecedor) {
+    public Response createFornecedor(FornecedorDTO fornecedorDTO) {
 
 
-        Fornecedor f = fornecedorDAO.findByCnpj(fornecedor.getCnpj());
+        Fornecedor f = fornecedorDAO.findByCnpj(fornecedorDTO.getCnpj());
 
-        if(f != null){
+        if(f != null || fornecedorDTO.getCnpj() == null){
             return Response.status(Response.Status.BAD_REQUEST)
-                    .entity("Operação inválida, o cnpj informado já existe!")
+                    .entity("Operação inválida, o cnpj informado já existe ou é nulo!")
                     .build();
         }
-        if (fornecedor == null){
+        if (fornecedorDTO == null){
             return Response.status(Response.Status.BAD_REQUEST)
                     .entity("Operação inválida, campos em branco")
                     .build();
         }
 
+        System.out.println(fornecedorDTO);
+        Fornecedor novoFornecedor = new Fornecedor(fornecedorDTO);
+        System.out.println(novoFornecedor);
+
         try {
-            fornecedorDAO.create(fornecedor);
-            return Response.status(Response.Status.CREATED).entity(fornecedor).build();
+            fornecedorDAO.create(novoFornecedor);
+            return Response.status(Response.Status.CREATED).entity(novoFornecedor).build();
         } catch (Exception e){
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
         }

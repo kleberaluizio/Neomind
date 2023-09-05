@@ -26,7 +26,7 @@ public class FornecedorDAO {
     public Fornecedor findById(int id){
         return this.em.find(Fornecedor.class,id);
     }
-    //
+
     public Fornecedor findByCnpj(String cnpj){
         String JPQL = "SELECT p FROM Fornecedor p WHERE p.cnpj = :cnpj";
         try {
@@ -37,7 +37,7 @@ public class FornecedorDAO {
             return null;
         }
     }
-    //
+
     public List<Fornecedor> findAll(){
         String JPQL = "SELECT p FROM Fornecedor p";
         return em.createQuery(JPQL).getResultList();
@@ -48,6 +48,7 @@ public class FornecedorDAO {
         this.em.merge(fornecedor);
         close();
     }
+
     //DELETE
     public void delete(Fornecedor fornecedor){
         open();
