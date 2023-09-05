@@ -26,7 +26,7 @@ Neste desafio eu criei uma interface para apresentar os dados de fornecedores, r
 * AngularJS (versão 1.8)
 * Bibliotecas:
 	* Sweetalert.js para exibir alertas
-	* Cleave.js aplicar mascára ao campo de cnpj.
+	* Cleave.js para aplicar mascára ao campo de cnpj.
 * Controle de versão (Git);
 
 ## Desafio 3: Lógica e Programação
