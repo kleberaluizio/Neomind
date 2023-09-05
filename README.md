@@ -8,13 +8,17 @@
 * Camada de persistência (JPA + Hibernate);
 * Maven
 * Banco de dados MySQL
+* Controle de versão (Git);
 
 ## Desafio 2: Programação Front-end
 
 ### Tecnologias Utilizadas
 
 * Bootstrap
-* Angular JS
+* Angular JS ()
+* Sweetalert
+* Cleave
+* Controle de versão (Git);
 
 ## Desafio 3: Lógica e Programação
 
