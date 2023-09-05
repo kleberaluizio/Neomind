@@ -45,8 +45,13 @@ O desafio foi realizado em Java e durante sua implementação surgiu a seguinte 
 
  * Premissa atualizada:
 	* 00:00h possui um ângulo de 0º.
-	* 00:15h possui um ângulo de 45º.
+	* 00:15h possui um ângulo de 90º.
 	* 00:30h possui um ângulo de 180º
+
+ ## Banco de dados
+
+ O arquivo Dump20230905.sql contém um dump do banco de dados criados para o desafio 1 e 2. Contém 4 fornecedores cadastrados. 
+
 
 
 
