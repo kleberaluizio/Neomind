@@ -4,6 +4,7 @@ import br.com.neomind.api.model.Fornecedor;
 import br.com.neomind.api.model.FornecedorDTO;
 import br.com.neomind.api.service.FornecedorService;
 import jakarta.inject.Inject;
+import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
@@ -21,8 +22,16 @@ public class FornecedorResource {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public Response create(FornecedorDTO fornecedorDTO){
-        return  fornecedorService.createFornecedor(fornecedorDTO);
+        return fornecedorService.createFornecedor(fornecedorDTO);
     }
+
+//    @POST
+//    @Produces(MediaType.APPLICATION_JSON)
+//    @Consumes(MediaType.APPLICATION_JSON)
+//    public Response create(@Valid Fornecedor fornecedor){
+//        return fornecedorService.createFornecedor(fornecedor);
+//    }
+
 
     //READ
     @GET
