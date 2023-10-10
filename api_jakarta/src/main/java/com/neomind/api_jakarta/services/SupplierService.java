@@ -5,6 +5,7 @@ import com.neomind.api_jakarta.repositories.SupplierDao;
 import jakarta.ws.rs.core.Response;
 
 import java.util.List;
+import java.util.regex.Pattern;
 
 public class SupplierService {
 
@@ -17,7 +18,7 @@ public class SupplierService {
         return supplierDao.findAll();
     }
 
-    public Response create(Supplier supplier) {
+    public Response create(Supplier supplier) {  // USAR DTO
 
         Supplier f = supplierDao.findByCnpj(supplier.getCnpj());
 
@@ -32,7 +33,7 @@ public class SupplierService {
                     .build();
         }
 
-//        Supplier novoFornecedor = new Supplier(fornecedorDTO);
+        Supplier novoFornecedor = supplier;
 
         Boolean emailIsValid = Pattern.compile("^(.+)@(\\S+)$").matcher(novoFornecedor.getEmail()).matches();
         if(!emailIsValid){
@@ -42,7 +43,7 @@ public class SupplierService {
         }
 
         try {
-            fornecedorDAO.create(novoFornecedor);
+            supplierDao.create(novoFornecedor);
             return Response.status(Response.Status.CREATED).entity(novoFornecedor).build();
         } catch (Exception e){
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
