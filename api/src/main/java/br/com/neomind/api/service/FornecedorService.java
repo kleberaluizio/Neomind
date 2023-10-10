@@ -4,6 +4,7 @@ import br.com.neomind.api.model.Fornecedor;
 import br.com.neomind.api.dao.FornecedorDAO;
 import br.com.neomind.api.model.FornecedorDTO;
 import br.com.neomind.api.util.JPAUtil;
+import jakarta.inject.Inject;
 import jakarta.ws.rs.core.Response;
 
 import java.util.List;
