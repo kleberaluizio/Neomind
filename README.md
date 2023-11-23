@@ -5,7 +5,7 @@ Neste desafio eu criei um API REST para devolver os dados de fornecedores, e ain
 
 ### Tecnologias Utilizadas
 
-* Java EE (JAX-RS)
+* Jakarta EE (JAX-RS)
 	* Utilizei Jersey como implementação da especificação JAX-RS.
 * Camada de persistência (JPA + Hibernate);
 * Maven
