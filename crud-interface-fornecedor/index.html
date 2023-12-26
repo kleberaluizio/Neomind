@@ -12,7 +12,11 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/cleave.js/1.0.2/cleave.min.js"></script>
+    <script src="app.js"></script>
+
+    <script src="app/services/fornecedores.service.js"></script>
     <script src="./consume-jaxrs-api.js"></script>
+    
 </head>
 
 <body ng-app="fornecedor-neomind" ng-controller="fornecedoresCtrl">
@@ -39,8 +43,8 @@
                 <tr>
                     <th>Nome do Fornecedor</th>
                     <th>E-mail</th>
-                    <th>Commentário</th>
-                    <th class="col-1">CNPJ</th>
+                    <th>Comentário</th>
+                    <th class="col-2">CNPJ</th>
                     <th class="text-center"> Acões</th>
                 </tr>
             </thead>
@@ -55,7 +59,7 @@
                             <td class="text-center">
                                 <button type="button" value="Update" ng-click="UpdateFornecedor(fornecedor)"
                                     class="btn btn-warning">Editar</button>
-                                <button type="button" value="Delete" ng-click="DeleteFornecedor(fornecedor.id)"
+                                <button type="button" value="Delete" ng-click="deleteFornecedor(fornecedor.id)"
                                     class="btn btn-danger">Excluir</button>
                             </td>
                         </tr>
@@ -69,7 +73,7 @@
     <div class="container">
         <h3 class="text-center">Cadastro e atualização:</h3>
 
-            <form ng-reset="CleanData()" name="formulario">
+            <form name="formulario">
                 <div class="inputs row gap-2">
                     <div class="form-group row">
                         <label for="nome-input" class="col-2 col-form-label">Nome do Fornecedor</label>
@@ -94,7 +98,7 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="cnpj-input" class="col-2 col-form-label">CNPJ</label>
+                        <label for="cnpj-input" class="col-4 col-form-label">CNPJ</label>
                         <div class="col-10">
                             <input class="form-control cnpj" type="text" ng-model="Fcnpj" required
                             oninvalid="this.setCustomValidity('Por favor, insira um cnpj válido.')" 
@@ -107,7 +111,7 @@
 
                 <div class="py-4">
                     <button type="submit" id="insertFornecedor" value="submit"
-                        ng-click="InsertFornecedor(Fname,Femail,Fcomment,Fcnpj,Fid)" class="btn btn-success">Enviar</button>
+                        ng-click="InsertFornecedor(Fname,Femail,Fcomment,Fcnpj,Fid)" class="btn btn-success">{{buttonTitle}}</button>
                     <button type="reset" class="btn btn-primary" ng-click="CleanData()">Cancelar</button>
                 </div>
             </form>

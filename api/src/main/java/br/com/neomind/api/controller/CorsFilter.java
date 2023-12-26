@@ -7,6 +7,7 @@ import jakarta.ws.rs.ext.Provider;
 
 import java.io.IOException;
 
+
 @Provider
 public class CorsFilter implements ContainerResponseFilter {
 
@@ -23,6 +24,8 @@ public class CorsFilter implements ContainerResponseFilter {
         responseContext.getHeaders().add(
                 "Access-Control-Allow-Methods",
                 "GET, POST, PUT, DELETE, OPTIONS, HEAD");
+
+        System.out.println("teste");
     }
 
 }

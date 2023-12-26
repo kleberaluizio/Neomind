@@ -1,5 +1,6 @@
 package br.com.neomind.api;
 
+import br.com.neomind.api.controller.CorsFilter;
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.jersey.server.ResourceConfig;
@@ -22,7 +23,9 @@ public class Main {
     public static HttpServer startServer() {
         // create a resource config that scans for JAX-RS resources and providers
         // in br.com.neomind package
-        final ResourceConfig rc = new ResourceConfig().packages("br.com.neomind.api");
+        final ResourceConfig rc = new ResourceConfig()
+                .packages("br.com.neomind.api")
+                .register(CorsFilter.class);// Register my CorsFilter
 
         // create and start a new instance of grizzly http server
         // exposing the Jersey application at BASE_URI
@@ -39,7 +42,6 @@ public class Main {
         System.out.println(String.format("Jersey app started with endpoints available at "
                 + "%s%nHit Ctrl-C to stop it...", BASE_URI));
         System.in.read();
-        server.stop();
     }
 }
 

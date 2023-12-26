@@ -12,3 +12,9 @@
     line-height: 1;
     filter: invert(100%) sepia(0) saturate(7475%) hue-rotate(355deg) brightness(101%) contrast(106%);
 }
+
+footer {
+    bottom: 0;
+    width: 100%;
+    /* Outros estilos conforme necessário */
+}
