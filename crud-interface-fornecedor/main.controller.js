@@ -1,8 +1,8 @@
 
 app.controller('fornecedoresCtrl', function ($scope, $http,fornecedorService) {
 
-    $scope.tempFornecedor = 1;
-    $scope.buttonTitle = 'Enviar';
+    $scope.tempFornecedor = [];
+    $scope.buttonTitle = 'Cadastrar';
     //CREATE
     $scope.InsertFornecedor = function (Fname, Femail, Fcomment, Fcnpj,Fid) {
         var type = document.getElementById("insertFornecedor").getAttribute("value");
@@ -18,31 +18,20 @@ app.controller('fornecedoresCtrl', function ($scope, $http,fornecedorService) {
         }
         
         if (type == "submit") {
-            $http({
-                method: "post",
-                url: "http://localhost:8080/fornecedor",
-                datatype: "json",
-                data: JSON.stringify(fornecedor)
-            }).then(function (response) {
-                swal("Fornecedor cadastrado com sucesso!", "", "success");
+            fornecedorService.create(fornecedor).then(function (response) {
                 $scope.getAllFornecedores();
-                document.getElementById("insertFornecedor").setAttribute("value","submit");
-                cleanData();
+                swal("Fornecedor cadastrado com sucesso!", "", "success");   
             })
         } else { //UPDATE 
-            document.getElementById("insertFornecedor").setAttribute("value","submit");
-            $http({
-                method: "put",
-                url: "http://localhost:8080/fornecedor/" + Fid,
-                datatype: "json",
-                data: JSON.stringify(fornecedor)
-            }).then(function (response) {
-                swal("Fornecedor atualizado com sucesso!", "", "success");
+            fornecedorService.update(fornecedor,Fid).then(function (response) {
                 $scope.getAllFornecedores();
-                document.getElementById("insertFornecedor").setAttribute("value","submit");
-                cleanData();
+                swal("Fornecedor atualizado com sucesso!", "", "success");
+                
             })
         }
+
+        $scope.cleanData();
+        document.getElementById("insertFornecedor").setAttribute("value","submit");
     }
 
 
@@ -59,15 +48,21 @@ app.controller('fornecedoresCtrl', function ($scope, $http,fornecedorService) {
         console.log($scope.Fid);
         document.getElementById("insertFornecedor").setAttribute("value","Update");
     }
-    $scope.prepareToUpdate = function(){
-        
+    $scope.prepareToUpdate = function(fornecedor){
+        $scope.Fname = fornecedor.name;
+        $scope.Femail= fornecedor.email;
+        $scope.Fcomment= fornecedor.comment;
+        $scope.Fcnpj= fornecedor.cnpj;
+        $scope.Fid= fornecedor.id;
+        $scope.buttonTitle = 'Atualizar';
+        document.getElementById("insertFornecedor").setAttribute("value","Update");
     }
 
     // REFATORADO ABAIXO
 
     // READ
     $scope.getAllFornecedores = function () {
-        fornecedorService.getAll().then(function (response) {
+        fornecedorService.readAll().then(function (response) {
             $scope.fornecedores = response.data;
         }, function () {
             swal("Não foi possível coletar os dados dos fornecedores, verifique sua conexão!", "", "warning");
@@ -79,15 +74,16 @@ app.controller('fornecedoresCtrl', function ($scope, $http,fornecedorService) {
         fornecedorService.delete(id_fornecedor).then(function (response) {
             $scope.getAllFornecedores();
             swal("Exclusão realizada com sucesso!", "", "success");
-            cleanData();
+            $scope.cleanData();
         })
     }
     
-    function cleanData(){
+    $scope.cleanData = function (){
         $scope.Fname = " ";
         $scope.Femail= " ";
         $scope.Fcomment= " ";
         $scope.Fcnpj= " ";
+        $scope.buttonTitle = 'Enviar';
     }
 
   

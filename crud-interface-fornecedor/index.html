@@ -15,8 +15,8 @@
     <script src="app.js"></script>
 
     <script src="app/services/fornecedores.service.js"></script>
-    <script src="./consume-jaxrs-api.js"></script>
-    
+    <script src="main.controller.js"></script>
+
 </head>
 
 <body ng-app="fornecedor-neomind" ng-controller="fornecedoresCtrl">
@@ -49,22 +49,18 @@
                 </tr>
             </thead>
             <tbody>
-                <div>
-                    <div>
-                        <tr ng-repeat="fornecedor in fornecedores">
-                            <td>{{ fornecedor.name}}</td>
-                            <td>{{ fornecedor.email }}</td>
-                            <td>{{ fornecedor.comment }}</td>
-                            <td>{{ fornecedor.cnpj }}</td>
-                            <td class="text-center">
-                                <button type="button" value="Update" ng-click="UpdateFornecedor(fornecedor)"
-                                    class="btn btn-warning">Editar</button>
-                                <button type="button" value="Delete" ng-click="deleteFornecedor(fornecedor.id)"
-                                    class="btn btn-danger">Excluir</button>
-                            </td>
-                        </tr>
-                    </div>
-                </div>
+                <tr ng-repeat="fornecedor in fornecedores">
+                    <td>{{ fornecedor.name}}</td>
+                    <td>{{ fornecedor.email }}</td>
+                    <td>{{ fornecedor.comment }}</td>
+                    <td>{{ fornecedor.cnpj }}</td>
+                    <td class="text-center">
+                        <button type="button" value="Update" ng-click="prepareToUpdate(fornecedor)"
+                            class="btn btn-warning">Editar</button>
+                        <button type="button" value="Delete" ng-click="deleteFornecedor(fornecedor.id)"
+                            class="btn btn-danger">Excluir</button>
+                    </td>
+                </tr>
             </tbody>
         </table>
         <br>
@@ -73,61 +69,64 @@
     <div class="container">
         <h3 class="text-center">Cadastro e atualização:</h3>
 
-            <form name="formulario">
-                <div class="inputs row gap-2">
-                    <div class="form-group row">
-                        <label for="nome-input" class="col-2 col-form-label">Nome do Fornecedor</label>
-                        <div class="col-10">
-                            <input class="form-control" type="text" ng-model="Fname" required
-                            oninvalid="this.setCustomValidity('Campo obrigatório!')" 
+        <form ng-reset="cleanData()" name="formulario">
+            <div class="inputs row gap-2">
+                <div class="form-group row">
+                    <label for="nome-input" class="col-2 col-form-label">Nome do Fornecedor</label>
+                    <div class="col-10">
+                        <input class="form-control" type="text" ng-model="Fname" required
+                            oninvalid="this.setCustomValidity('Campo obrigatório!')"
                             onchange="try{setCustomValidity('')}catch(e){}">
-                        </div>
                     </div>
-                    <div class="form-group row">
-                        <label for="email-input" class="col-2 col-form-label">Endereço de e-mail</label>
-                        <div class="col-10">
-                            <input class="form-control" type="email" placeholder="gandalf@email.com" ng-model="Femail" required 
-                            oninvalid="this.setCustomValidity('Por favor, insira um e-mail válido. (exemplo@email.com)')" 
+                </div>
+                <div class="form-group row">
+                    <label for="email-input" class="col-2 col-form-label">Endereço de e-mail</label>
+                    <div class="col-10">
+                        <input class="form-control" type="email" placeholder="gandalf@email.com" ng-model="Femail"
+                            required
+                            oninvalid="this.setCustomValidity('Por favor, insira um e-mail válido. (exemplo@email.com)')"
                             onchange="try{setCustomValidity('')}catch(e){}">
-                        </div>
                     </div>
-                    <div class="form-group row">
-                        <label for="comment-input" class="col-2 col-form-label">Comentário</label>
-                        <div class="col-10">
-                            <input class="form-control" type="text" ng-model="Fcomment">
-                        </div>
+                </div>
+                <div class="form-group row">
+                    <label for="comment-input" class="col-2 col-form-label">Comentário</label>
+                    <div class="col-10">
+                        <input class="form-control" type="text" ng-model="Fcomment">
                     </div>
-                    <div class="form-group row">
-                        <label for="cnpj-input" class="col-4 col-form-label">CNPJ</label>
-                        <div class="col-10">
-                            <input class="form-control cnpj" type="text" ng-model="Fcnpj" required
-                            oninvalid="this.setCustomValidity('Por favor, insira um cnpj válido.')" 
+                </div>
+                <div class="form-group row">
+                    <label for="cnpj-input" class="col-2 col-form-label">CNPJ</label>
+                    <div class="col-10">
+                        <input class="form-control cnpj" type="text" ng-model="Fcnpj" required
+                            oninvalid="this.setCustomValidity('Por favor, insira um cnpj válido.')"
                             onchange="try{setCustomValidity('')}catch(e){}" pattern=".{14}">
-                        </div>
                     </div>
-                    <input type="hidden" ng-model="Fid">
                 </div>
-          
+                <input type="hidden" ng-model="Fid">
+            </div>
 
-                <div class="py-4">
-                    <button type="submit" id="insertFornecedor" value="submit"
-                        ng-click="InsertFornecedor(Fname,Femail,Fcomment,Fcnpj,Fid)" class="btn btn-success">{{buttonTitle}}</button>
-                    <button type="reset" class="btn btn-primary" ng-click="CleanData()">Cancelar</button>
-                </div>
-            </form>
+
+            <div class="py-4">
+                <button type="submit" id="insertFornecedor" value="submit"
+                    ng-click="InsertFornecedor(Fname,Femail,Fcomment,Fcnpj,Fid)"
+                    class="btn btn-success">{{buttonTitle}}</button>
+                <button type="reset" class="btn btn-primary" ng-click="cleanData()">Cancelar</button>
+            </div>
+        </form>
     </div>
 
     <footer class="footer_bar text-center bg-black text-bg-dark gap-1 pb-0">
-        <p class="py-3 ">2023 <i class="bi bi-c-circle"></i> - Desenvolvido por Kleber Aluizio  - <a href="https://github.com/kleberaluizio">Github</a> 
+        <p class="py-3 ">2023 <i class="bi bi-c-circle"></i> - Desenvolvido por Kleber Aluizio - <a
+                href="https://github.com/kleberaluizio">Github</a>
         </p>
     </footer>
 
 
     <script>
         new Cleave('.cnpj', {
-        blocks: [2, 3, 4, 2],
-        delimiters: ['.', '/', '-'],
-        numericOnly: true
+            blocks: [2, 3, 4, 2],
+            delimiters: ['.', '/', '-'],
+            numericOnly: true
         });
     </script>
 </body>
