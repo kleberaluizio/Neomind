@@ -18,3 +18,11 @@ footer {
     width: 100%;
     /* Outros estilos conforme necessário */
 }
+
+.nav-item, .navbar-nav{
+    color: antiquewhite;
+}
+
+.cadastrar-button{
+    text-align: left !important;
+}

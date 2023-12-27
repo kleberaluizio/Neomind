@@ -1,0 +1,47 @@
+<div class="container" >
+    <h1 class="text-center p-4">Cadastro e atualização</h1>
+
+    <form name="formulario">
+        <div class="inputs row gap-2">
+            <div class="form-group row">
+                <label for="nome-input" class="col-2 col-form-label">Nome do Fornecedor</label>
+                <div class="col-10">
+                    <input class="form-control" type="text" ng-model="tempFornecedor.name" required
+                        oninvalid="this.setCustomValidity('Campo obrigatório!')"
+                        onchange="try{setCustomValidity('')}catch(e){}">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="email-input" class="col-2 col-form-label">Endereço de e-mail</label>
+                <div class="col-10">
+                    <input class="form-control" type="email" placeholder="gandalf@email.com"
+                        ng-model="tempFornecedor.email" required
+                        oninvalid="this.setCustomValidity('Por favor, insira um e-mail válido. (exemplo@email.com)')"
+                        onchange="try{setCustomValidity('')}catch(e){}">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="comment-input" class="col-2 col-form-label">Comentário</label>
+                <div class="col-10">
+                    <input class="form-control" type="text" ng-model="tempFornecedor.comment">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="cnpj-input" class="col-2 col-form-label">CNPJ</label>
+                <div class="col-10">
+                    <input class="form-control cnpj" type="text" ng-model="tempFornecedor.cnpj" required
+                        oninvalid="this.setCustomValidity('Por favor, insira um cnpj válido.')"
+                        onchange="try{setCustomValidity('')}catch(e){}" pattern=".{14}">
+                </div>
+            </div>
+            <input type="hidden" ng-model="tempFornecedor.id">
+        </div>
+
+
+        <div class="py-4">
+                <button type="submit" id="insertFornecedor" value="submit" ng-click="insertFornecedor()"
+                    class="btn btn-success">{{buttonTitle}}</button>
+                <button type="reset" class="btn btn-primary" ng-click="cleanData()">Cancelar</button>
+        </div>
+    </form>
+</div>

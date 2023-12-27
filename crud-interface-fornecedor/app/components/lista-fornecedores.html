@@ -1,0 +1,32 @@
+<div class="text-center">
+    <h1 class="text-center p-4">Lista de Fornecedores</h1>
+
+    <div class="container" ng-init="getAllFornecedores()">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Nome do Fornecedor</th>
+                    <th>E-mail</th>
+                    <th>Comentário</th>
+                    <th class="col-2">CNPJ</th>
+                    <th class="text-center"> Acões</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="fornecedor in fornecedores">
+                    <td>{{ fornecedor.name}}</td>
+                    <td>{{ fornecedor.email }}</td>
+                    <td>{{ fornecedor.comment }}</td>
+                    <td>{{ fornecedor.cnpj }}</td>
+                    <td class="text-center">
+                        <a href="#!/cadastrar"> <button type="button" value="Update"
+                                ng-click="prepareToUpdate(fornecedor)" class="btn btn-warning">Editar</button></a>
+                        <button type="button" value="Delete" ng-click="deleteFornecedor(fornecedor.id)"
+                            class="btn btn-danger">Excluir</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <br>
+    </div>
+</div>

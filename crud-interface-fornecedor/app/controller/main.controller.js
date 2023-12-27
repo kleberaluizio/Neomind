@@ -1,32 +1,25 @@
 
-app.controller('fornecedoresCtrl', function ($scope, $http,fornecedorService) {
+app.controller('fornecedoresCtrl', function ($scope, $http, $location, fornecedorService) {
 
     $scope.tempFornecedor = [];
     $scope.buttonTitle = 'Cadastrar';
     //CREATE
-    $scope.InsertFornecedor = function (Fname, Femail, Fcomment, Fcnpj,Fid) {
+    $scope.createOrUpdateFornecedor = function () {
         var type = document.getElementById("insertFornecedor").getAttribute("value");
-
-        var fornecedor = { 
-            name: Fname, 
-            email: Femail, 
-            comment: Fcomment, 
-            cnpj: Fcnpj};
 
         if(!$scope.formulario.$valid){
             return;
         }
         
         if (type == "submit") {
-            fornecedorService.create(fornecedor).then(function (response) {
+            fornecedorService.create($scope.tempFornecedor).then(function (response) {
                 $scope.getAllFornecedores();
                 swal("Fornecedor cadastrado com sucesso!", "", "success");   
             })
-        } else { //UPDATE 
-            fornecedorService.update(fornecedor,Fid).then(function (response) {
+        } else { 
+            fornecedorService.update($scope.tempFornecedor,$scope.tempFornecedor.id).then(function (response) {
                 $scope.getAllFornecedores();
-                swal("Fornecedor atualizado com sucesso!", "", "success");
-                
+                swal("Fornecedor atualizado com sucesso!", "", "success"); 
             })
         }
 
@@ -34,31 +27,17 @@ app.controller('fornecedoresCtrl', function ($scope, $http,fornecedorService) {
         document.getElementById("insertFornecedor").setAttribute("value","submit");
     }
 
-
-    
-   
-    //UPDATE 
-    $scope.UpdateFornecedor = function(fornecedor){
-
-        $scope.Fname = fornecedor.name;
-        $scope.Femail= fornecedor.email;
-        $scope.Fcomment= fornecedor.comment;
-        $scope.Fcnpj= fornecedor.cnpj;
-        $scope.Fid= fornecedor.id;
-        console.log($scope.Fid);
-        document.getElementById("insertFornecedor").setAttribute("value","Update");
-    }
-    $scope.prepareToUpdate = function(fornecedor){
-        $scope.Fname = fornecedor.name;
-        $scope.Femail= fornecedor.email;
-        $scope.Fcomment= fornecedor.comment;
-        $scope.Fcnpj= fornecedor.cnpj;
-        $scope.Fid= fornecedor.id;
-        $scope.buttonTitle = 'Atualizar';
-        document.getElementById("insertFornecedor").setAttribute("value","Update");
-    }
-
     // REFATORADO ABAIXO
+    $scope.prepareToUpdate = function(fornecedor){
+        
+        $scope.tempFornecedor = angular.copy(fornecedor);
+        console.log('preparing to update')
+        console.log($scope.tempFornecedor)
+        $scope.buttonTitle = 'Atualizar';
+        console.log($scope.buttonTitle)
+        document.getElementById("insertFornecedor").setAttribute("value","Update");
+    }
+
 
     // READ
     $scope.getAllFornecedores = function () {
@@ -79,13 +58,19 @@ app.controller('fornecedoresCtrl', function ($scope, $http,fornecedorService) {
     }
     
     $scope.cleanData = function (){
-        $scope.Fname = " ";
-        $scope.Femail= " ";
-        $scope.Fcomment= " ";
-        $scope.Fcnpj= " ";
+        $scope.tempFornecedor = [];
         $scope.buttonTitle = 'Enviar';
     }
 
-  
+
+    $scope.init = function(){
+        new Cleave('.cnpj', {
+            blocks: [2, 3, 4, 2],
+            delimiters: ['.', '/', '-'],
+            numericOnly: true
+        });
+    };
+    $scope.init();
+    
 });
 
