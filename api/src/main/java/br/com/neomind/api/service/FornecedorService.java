@@ -60,15 +60,15 @@ public class FornecedorService {
         }
     }
 
-//    public Response createFornecedor(Fornecedor fornecedor) {
-//
-//        try {
-//            fornecedorDAO.create(fornecedor);
-//            return Response.status(Response.Status.CREATED).entity(fornecedor).build();
-//        } catch (Exception e){
-//            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
-//        }
-//    }
+    public Response createFornecedor(Fornecedor fornecedor) {
+
+        try {
+            fornecedorDAO.create(fornecedor);
+            return Response.status(Response.Status.CREATED).entity(fornecedor).build();
+        } catch (Exception e){
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
+        }
+    }
 
     public Response updateFornecedor(int id, Fornecedor fornecedor) {
         Fornecedor f = fornecedorDAO.findById(id);

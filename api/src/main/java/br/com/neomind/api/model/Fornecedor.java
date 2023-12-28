@@ -2,6 +2,7 @@ package br.com.neomind.api.model;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 
 import javax.persistence.*;
@@ -16,11 +17,12 @@ public class Fornecedor {
     private int id;
     @NotBlank(message = "O nome não pode estar em branco")
     private String name;
-    @Email(message = "E-mail inválido.")
+    @NotNull(message = "Campo email não pode estar em branco")
+    @Email(message = "Por favor, digite um e-mail válido")
     private String email;
     private String comment;
     @NotBlank
-    @Pattern(regexp = "^\\d{2}\\.\\d{3}/\\d{4}-\\d{2}$")
+    @Pattern(regexp = "^\\d{2}\\.\\d{3}/\\d{4}-\\d{2}$", message = "Your custom error message goes here")
     private String cnpj;
 
     public Fornecedor(){
@@ -29,14 +31,7 @@ public class Fornecedor {
         this(dto.getName(), dto.getEmail(), dto.getComment(), dto.getCnpj());
     }
 
-    public Fornecedor(@NotBlank(message = "O nome não pode estar em branco")
-                      String name,
-                      @Email(message = "E-mail inválido.")
-                       String email,
-                      String comment,
-                      @NotBlank
-                      @Pattern(regexp = "^\\d{2}\\.\\d{3}/\\d{4}-\\d{2}$")
-                      String cnpj) {
+    public Fornecedor(String name,String email,String comment,String cnpj) {
         this.name = name;
         this.email = email;
         this.comment = comment;
