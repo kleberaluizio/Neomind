@@ -1,9 +1,11 @@
 
 app.controller('fornecedoresCtrl', function ($scope, $http, $location, fornecedorService) {
 
+    //Initialization Variables
     $scope.tempFornecedor = [];
     $scope.buttonTitle = 'Cadastrar';
-    //CREATE
+    
+    
     $scope.createOrUpdateFornecedor = function () {
         var type = document.getElementById("insertFornecedor").getAttribute("value");
 
@@ -27,19 +29,12 @@ app.controller('fornecedoresCtrl', function ($scope, $http, $location, fornecedo
         document.getElementById("insertFornecedor").setAttribute("value","submit");
     }
 
-    // REFATORADO ABAIXO
     $scope.prepareToUpdate = function(fornecedor){
-        
         $scope.tempFornecedor = angular.copy(fornecedor);
-        console.log('preparing to update')
-        console.log($scope.tempFornecedor)
         $scope.buttonTitle = 'Atualizar';
-        console.log($scope.buttonTitle)
         document.getElementById("insertFornecedor").setAttribute("value","Update");
     }
 
-
-    // READ
     $scope.getAllFornecedores = function () {
         fornecedorService.readAll().then(function (response) {
             $scope.fornecedores = response.data;
@@ -48,7 +43,6 @@ app.controller('fornecedoresCtrl', function ($scope, $http, $location, fornecedo
         })
     };
 
-    // DELETE
     $scope.deleteFornecedor = function(id_fornecedor){
         fornecedorService.delete(id_fornecedor).then(function (response) {
             $scope.getAllFornecedores();
@@ -64,6 +58,7 @@ app.controller('fornecedoresCtrl', function ($scope, $http, $location, fornecedo
 
 
     $scope.init = function(){
+        $scope.getAllFornecedores();
         new Cleave('.cnpj', {
             blocks: [2, 3, 4, 2],
             delimiters: ['.', '/', '-'],

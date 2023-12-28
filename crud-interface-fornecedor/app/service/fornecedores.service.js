@@ -2,7 +2,7 @@ app.service('fornecedorService',['$http',function($http){
     const URL = "http://localhost:8080/fornecedor/";
 
     this.create = function(fornecedor){
-        return $http.post(URL, returnObject(fornecedor))
+        return $http.post(URL, returnFornecedorObject(fornecedor))
     };
 
     this.readAll = function(){
@@ -17,7 +17,7 @@ app.service('fornecedorService',['$http',function($http){
         return $http.delete(URL + id_fornecedor)
     };
     
-    function returnObject(fornecedor) {
+    function returnFornecedorObject(fornecedor) {
         return {   
             name: fornecedor.name,
             email: fornecedor.email,

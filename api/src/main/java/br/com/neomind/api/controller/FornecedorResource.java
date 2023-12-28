@@ -22,6 +22,7 @@ public class FornecedorResource {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public Response create(FornecedorDTO fornecedorDTO){
+        System.out.println(fornecedorDTO);
         return fornecedorService.createFornecedor(fornecedorDTO);
     }
 
