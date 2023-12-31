@@ -17,7 +17,6 @@ public class Fornecedor {
     private int id;
     @NotBlank(message = "O nome não pode estar em branco")
     private String name;
-    @NotNull(message = "Campo email não pode estar em branco")
     @Email(message = "Por favor, digite um e-mail válido")
     private String email;
     private String comment;
@@ -27,10 +26,6 @@ public class Fornecedor {
 
     public Fornecedor(){
     }
-    public Fornecedor(FornecedorDTO dto){
-        this(dto.getName(), dto.getEmail(), dto.getComment(), dto.getCnpj());
-    }
-
     public Fornecedor(String name,String email,String comment,String cnpj) {
         this.name = name;
         this.email = email;

@@ -1,11 +1,9 @@
 package br.com.neomind.api.controller;
 
 import br.com.neomind.api.model.Fornecedor;
-import br.com.neomind.api.model.FornecedorDTO;
 import br.com.neomind.api.service.FornecedorService;
 import jakarta.inject.Inject;
-import jakarta.validation.ConstraintViolation;
-import jakarta.validation.ConstraintViolationException;
+import jakarta.inject.Named;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
@@ -18,23 +16,13 @@ public class FornecedorResource {
 
     private FornecedorService fornecedorService = new FornecedorService();
 
-
     //CREATE
-//    @POST
-//    @Produces(MediaType.APPLICATION_JSON)
-//    @Consumes(MediaType.APPLICATION_JSON)
-//    public Response create(FornecedorDTO fornecedorDTO){
-//        System.out.println(fornecedorDTO);
-//        return fornecedorService.createFornecedor(fornecedorDTO);
-//    }
-
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public Response create(@Valid Fornecedor fornecedor){
         return fornecedorService.createFornecedor(fornecedor);
     }
-
 
     //READ
     @GET
@@ -57,12 +45,6 @@ public class FornecedorResource {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response update(@PathParam("id") int id, Fornecedor fornecedor){
         return fornecedorService.updateFornecedor(id, fornecedor);
-    }
-    @PUT
-    @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Response update(Fornecedor fornecedor){
-        return fornecedorService.updateFornecedor(fornecedor);
     }
 
     //DELETE
