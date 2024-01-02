@@ -15,12 +15,12 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/cleave.js/1.0.2/cleave.min.js"></script>
 
     <script src="app.js"></script>
-    <script src="app/service/fornecedores.service.js"></script>
+    <script src="app/service/fornecedor.service.js"></script>
     <script src="app/controller/main.controller.js"></script>
 
 </head>
 
-<body ng-controller="fornecedoresCtrl">
+<body ng-controller="SupplierController as main">
 
     <header ng-include="'app/components/header.html'"></header>
 
@@ -76,6 +76,7 @@
             </div>
         </form>
     </div>
+    
     
     <footer ng-include="'app/components/footer.html'"></footer>
 

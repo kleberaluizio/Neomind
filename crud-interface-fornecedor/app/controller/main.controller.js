@@ -1,7 +1,8 @@
 
-app.controller('fornecedoresCtrl', function ($scope, $http, $location, fornecedorService) {
+app.controller('SupplierController', function ($scope, $http, $location, fornecedorService) {
 
     //Initialization Variables
+    var main = this;
     $scope.tempFornecedor = [];
     $scope.buttonTitle = 'Cadastrar';
     
@@ -14,12 +15,12 @@ app.controller('fornecedoresCtrl', function ($scope, $http, $location, fornecedo
         }
         
         if (type == "submit") {
-            fornecedorService.create($scope.tempFornecedor).then(function (response) {
+            fornecedorService.createSupplier($scope.tempFornecedor).then(function (response) {
                 $scope.getAllFornecedores();
                 swal("Fornecedor cadastrado com sucesso!", "", "success");   
             })
         } else { 
-            fornecedorService.update($scope.tempFornecedor,$scope.tempFornecedor.id).then(function (response) {
+            fornecedorService.updateSupplier($scope.tempFornecedor,$scope.tempFornecedor.id).then(function (response) {
                 $scope.getAllFornecedores();
                 swal("Fornecedor atualizado com sucesso!", "", "success"); 
             })
@@ -29,14 +30,15 @@ app.controller('fornecedoresCtrl', function ($scope, $http, $location, fornecedo
         document.getElementById("insertFornecedor").setAttribute("value","submit");
     }
 
-    $scope.prepareToUpdate = function(fornecedor){
+    main.prepareToUpdate = function(fornecedor){
+        debugger;
         $scope.tempFornecedor = angular.copy(fornecedor);
         $scope.buttonTitle = 'Atualizar';
         document.getElementById("insertFornecedor").setAttribute("value","Update");
     }
 
     $scope.getAllFornecedores = function () {
-        fornecedorService.readAll().then(function (response) {
+        fornecedorService.getAllSuppliers().then(function (response) {
             $scope.fornecedores = response.data;
         }, function () {
             swal("Não foi possível coletar os dados dos fornecedores, verifique sua conexão!", "", "warning");
@@ -44,7 +46,7 @@ app.controller('fornecedoresCtrl', function ($scope, $http, $location, fornecedo
     };
 
     $scope.deleteFornecedor = function(id_fornecedor){
-        fornecedorService.delete(id_fornecedor).then(function (response) {
+        fornecedorService.deleteSupplier(id_fornecedor).then(function (response) {
             $scope.getAllFornecedores();
             swal("Exclusão realizada com sucesso!", "", "success");
             $scope.cleanData();
