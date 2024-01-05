@@ -2,7 +2,7 @@
 app.controller('SupplierController', function ($scope, $http, $location, fornecedorService) {
 
     //Initialization Variables
-    var main = this;
+    var self = this;
     $scope.tempFornecedor = [];
     $scope.buttonTitle = 'Cadastrar';
     
@@ -30,7 +30,7 @@ app.controller('SupplierController', function ($scope, $http, $location, fornece
         document.getElementById("insertFornecedor").setAttribute("value","submit");
     }
 
-    main.prepareToUpdate = function(fornecedor){
+    self.prepareToUpdate = function(fornecedor){
         debugger;
         $scope.tempFornecedor = angular.copy(fornecedor);
         $scope.buttonTitle = 'Atualizar';
