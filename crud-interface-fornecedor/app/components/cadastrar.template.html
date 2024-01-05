@@ -9,8 +9,7 @@
                     <input class="form-control" type="text" name="name" ng-model="mainCtrl.tempFornecedor.name"
                         ng-required="true" ng-pattern="/.+/">
                     <div ng-messages="formulario.name.$error" ng-if="formulario.name.$touched || formulario.$submitted">
-                        <div ng-message="required">Campo obrigatório!</div>
-                        <div ng-message="pattern">Campo obrigatório!</div>
+                        <div class="error-message" ng-message="required">Campo obrigatório!</div>
                     </div>
                 </div>
             </div>
@@ -22,8 +21,7 @@
                         ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/">
                     <div ng-messages="formulario.email.$error"
                         ng-if="formulario.email.$touched || formulario.$submitted">
-                        <div ng-message="required">Campo obrigatório!</div>
-                        <div ng-message="pattern">Por favor, insira um e-mail válido. (exemplo@email.com)</div>
+                        <div class="error-message" ng-message="pattern || required">Campo obrigatório, insira um e-mail válido. (exemplo@email.com)</div>
                     </div>
                 </div>
             </div>
@@ -37,10 +35,9 @@
                 <label for="cnpj-input" class="col-2 col-form-label">CNPJ</label>
                 <div class="col-10">
                     <input class="form-control cnpj" type="text" name="cnpj" ng-model="mainCtrl.tempFornecedor.cnpj"
-                        ng-required="true" ng-pattern=".{14}">
+                        ng-required="true" ng-pattern="/^.{14}$/">
                     <div ng-messages="formulario.cnpj.$error" ng-if="formulario.cnpj.$touched || formulario.$submitted">
-                        <div ng-message="required">Campo obrigatório!</div>
-                        <div ng-message="pattern">Por favor, insira um cnpj válido. </div>
+                        <div class="error-message" ng-message="pattern || required">Campo obrigatório, insira um cnpj válido. </div>
                     </div>
                 </div>
             </div>
@@ -50,8 +47,8 @@
         <div class="py-4">
 
             <button type="button" class="btn btn-success"
-                ng-click="mainCtrl.isCreate ? mainCtrl.createSupplier(formulario) : mainCtrl.updateSupplier(formulario)">
-                {{ mainCtrl.isCreate ? 'Cadastrar' : 'Atualizar' }}
+                ng-click="mainCtrl.isSupplierToBeUpdated ? mainCtrl.updateSupplier(formulario) : mainCtrl.createSupplier(formulario) ">
+                {{ mainCtrl.isSupplierToBeUpdated ?  'Atualizar' : 'Cadastrar'}}
             </button>
             <a ng-href='#!/list-suppliers'>
                 <button type="reset" class="btn btn-primary"
