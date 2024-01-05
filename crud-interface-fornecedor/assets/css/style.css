@@ -1,9 +1,8 @@
 .navbar {
-    background-color: #979595;
     top: 0;
-
     width: 100%;
 }
+
 .navbar-brand img {
     opacity: .958;
     color: inherit;
@@ -22,7 +21,7 @@ body {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    margin-bottom: 60px;
+    /*margin-bottom: 60px;*/
 }
 
 footer {
@@ -37,8 +36,26 @@ footer {
 .cadastrar-button{
     text-align: left !important;
 }
+
 .error-message {
     font-size: 12px;
     color: red;
     margin-top: 4px; /* Espaço superior pequeno para separação */
 }
+
+.sidebar{
+    background-color: 	#272727;
+    min-width: 310px;
+    height: 100vh;
+}
+.sidebar-content{
+    padding-top: 30px;
+    padding-left: 15px;
+}
+.sidebar-content a{
+    color: azure;
+
+    text-decoration: none;
+}
+
+

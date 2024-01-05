@@ -1,5 +1,5 @@
 <div class="container">
-    <h1 class="text-center p-4"> {{ mainCtrl.isCreate ? 'Cadastrar Fornecedor' : 'Atualizar Fornecedor' }}</h1>
+    <h1 class="text-center p-4"> {{ mainCtrl.isSupplierToBeUpdated ?  'Atualizar Fornecedor' : 'Cadastrar Fornecedor' }}</h1>
 
     <form name="formulario" ng-controller="ValidationController as validCtrl">
         <div class="inputs row gap-2">
