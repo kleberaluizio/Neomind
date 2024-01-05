@@ -1,73 +1,169 @@
+app.controller('SupplierController', function ($scope, $route, $location, fornecedorService, $document) {
 
-app.controller('SupplierController', function ($scope, $http, $location, fornecedorService) {
+    var self = this;
 
-    //Initialization Variables
-    var main = this;
-    $scope.tempFornecedor = [];
-    $scope.buttonTitle = 'Cadastrar';
-    
-    
-    $scope.createOrUpdateFornecedor = function () {
-        var type = document.getElementById("insertFornecedor").getAttribute("value");
-
-        if(!$scope.formulario.$valid){
-            return;
-        }
-        
-        if (type == "submit") {
-            fornecedorService.createSupplier($scope.tempFornecedor).then(function (response) {
-                $scope.getAllFornecedores();
-                swal("Fornecedor cadastrado com sucesso!", "", "success");   
-            })
-        } else { 
-            fornecedorService.updateSupplier($scope.tempFornecedor,$scope.tempFornecedor.id).then(function (response) {
-                $scope.getAllFornecedores();
-                swal("Fornecedor atualizado com sucesso!", "", "success"); 
-            })
-        }
-
-        $scope.cleanData();
-        document.getElementById("insertFornecedor").setAttribute("value","submit");
+    self.createSupplier = function () {
+        fornecedorService.createSupplier(self.tempFornecedor).then(function (response) {
+            swal("Fornecedor cadastrado com sucesso!", "", "success");
+            executeAfterHttpRequest();
+        })
     }
 
-    main.prepareToUpdate = function(fornecedor){
-        debugger;
-        $scope.tempFornecedor = angular.copy(fornecedor);
-        $scope.buttonTitle = 'Atualizar';
-        document.getElementById("insertFornecedor").setAttribute("value","Update");
-    }
-
-    $scope.getAllFornecedores = function () {
+    self.getAllSuppliers = function () {
         fornecedorService.getAllSuppliers().then(function (response) {
-            $scope.fornecedores = response.data;
+            self.fornecedores = response.data;
         }, function () {
             swal("Não foi possível coletar os dados dos fornecedores, verifique sua conexão!", "", "warning");
         })
     };
 
-    $scope.deleteFornecedor = function(id_fornecedor){
-        fornecedorService.deleteSupplier(id_fornecedor).then(function (response) {
-            $scope.getAllFornecedores();
-            swal("Exclusão realizada com sucesso!", "", "success");
-            $scope.cleanData();
+    self.updateSupplier = function () {
+        fornecedorService.updateSupplier(self.tempFornecedor, self.tempFornecedor.id).then(function (response) {
+            swal("Fornecedor atualizado com sucesso!", "", "success");
+            executeAfterHttpRequest();
         })
     }
-    
-    $scope.cleanData = function (){
-        $scope.tempFornecedor = [];
-        $scope.buttonTitle = 'Enviar';
+
+    self.deleteFornecedor = function (id_fornecedor) {
+        fornecedorService.deleteSupplier(id_fornecedor).then(function (response) {
+            swal("Exclusão realizada com sucesso!", "", "success");
+            executeAfterHttpRequest();
+        })
     }
 
 
-    $scope.init = function(){
-        $scope.getAllFornecedores();
+
+    self.prepareToUpdate = function (fornecedor) {
+        self.tempFornecedor = angular.copy(fornecedor);
+        self.isCreate = false;
+    }
+
+
+    self.executeWhenButtonClicked = function () {
+        enableCreateButton();
+        self.cleanData();
+    }
+
+    function enableCreateButton() {
+        self.isCreate = true;
+    }
+
+    self.cleanData = function () {
+        self.tempFornecedor = {};
+    }
+
+    function executeAfterHttpRequest() {
+        self.cleanData();
+        self.getAllSuppliers();
+    }
+
+
+    self.initializeCleave = function () {
+        $document.ready(function () {// Wait for the DOM to be ready
+            new Cleave('.cnpj', {
+                blocks: [2, 3, 4, 2],
+                delimiters: ['.', '/', '-'],
+                numericOnly: true
+            });
+        });
+    };
+
+
+    $scope.$on('$routeChangeSuccess', function () {
+        let currentRoute = $route.current ? $route.current.$$route.originalPath : '';
+        if (currentRoute === '/register') {
+            // Executa a inicialização do Cleave.js apenas para a rota '/register'
+            self.initializeCleave();
+        }
+    });
+
+    $scope.init = function () {
+        self.isCreate = true;
+        self.tempFornecedor = {};
+        self.getAllSuppliers();
+        /*
         new Cleave('.cnpj', {
             blocks: [2, 3, 4, 2],
             delimiters: ['.', '/', '-'],
             numericOnly: true
         });
+        */
     };
     $scope.init();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /*
     
+        self.initializeCleave = function () {
+            new Cleave('.cnpj', {
+                blocks: [2, 3, 4, 2],
+                delimiters: ['.', '/', '-'],
+                numericOnly: true
+            });
+    
+        };
+            
+            new Cleave('.cnpj', {
+              blocks: [2, 3, 4, 2],
+              delimiters: ['.', '/', '-'],
+              numericOnly: true
+            });
+            
+        
+        $scope.$on('$routeChangeSuccess', function () {
+            // Obtém o nome da rota atual
+            var currentRoute = $route.current ? $route.current.$$route.originalPath : '';
+        
+            console.log(currentRoute)
+            // Verifica se a rota atual é '/register'
+            if (currentRoute === '/register') {
+              // Executa a inicialização do Cleave.js apenas para a rota '/register'
+              self.initializeCleave();
+            }
+          });
+     
+    
+          */
+    function reloadListOfSuppliers() {
+        // Define a nova rota
+        $location.path("#!/list-suppliers");
+
+        // Recarrega a página
+        window.location.reload();
+    };
+
+    $scope.init = function () {
+        self.isCreate = true;
+        self.tempFornecedor = {};
+        self.getAllSuppliers();
+        /*
+        new Cleave('.cnpj', {
+            blocks: [2, 3, 4, 2],
+            delimiters: ['.', '/', '-'],
+            numericOnly: true
+        });
+        */
+    };
+    $scope.init();
+
 });
 

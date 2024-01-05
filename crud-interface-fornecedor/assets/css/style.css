@@ -1,6 +1,5 @@
 .navbar {
     background-color: #979595;
-    position: fixed;
     top: 0;
 
     width: 100%;
@@ -24,7 +23,6 @@ body {
     display: flex;
     flex-direction: column;
     margin-bottom: 60px;
-    margin-top: 65px;
 }
 
 footer {
