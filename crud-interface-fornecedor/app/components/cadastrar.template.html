@@ -37,7 +37,7 @@
                 <label for="cnpj-input" class="col-2 col-form-label">CNPJ</label>
                 <div class="col-10">
                     <input class="form-control cnpj" type="text" name="cnpj" ng-model="mainCtrl.tempFornecedor.cnpj"
-                        ng-required="true" ng-pattern="/^\d{2}\.\d{3}\/\d{4}-\d{2}$/">
+                        ng-required="true" ng-pattern=".{14}">
                     <div ng-messages="formulario.cnpj.$error" ng-if="formulario.cnpj.$touched || formulario.$submitted">
                         <div ng-message="required">Campo obrigatório!</div>
                         <div ng-message="pattern">Por favor, insira um cnpj válido. </div>
