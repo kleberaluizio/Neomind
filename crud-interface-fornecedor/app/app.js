@@ -1,4 +1,4 @@
-var app = angular.module('fornecedor-neomind', ['ngRoute']);
+var app = angular.module('fornecedor-neomind', ['ngRoute', 'ngMessages']);
 
 app.config(['$routeProvider', function ($routeProvider) {
     $routeProvider

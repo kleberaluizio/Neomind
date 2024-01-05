@@ -1,25 +1,30 @@
 <div class="container">
     <h1 class="text-center p-4"> {{ mainCtrl.isCreate ? 'Cadastrar Fornecedor' : 'Atualizar Fornecedor' }}</h1>
 
-    <form name="formulario" ng-controller="ValidationController as validCtrl" >
+    <form name="formulario" ng-controller="ValidationController as validCtrl">
         <div class="inputs row gap-2">
             <div class="form-group row">
                 <label for="nome-input" class="col-2 col-form-label">Nome do Fornecedor</label>
                 <div class="col-10">
-                    <input class="form-control" type="text" ng-model="mainCtrl.tempFornecedor.name" ng-required="true"
-                        ng-change="validCtrl.clearValidation({{'name'}})">
-                    <span class="text-danger"
-                        ng-show="validCtrl.formulario.name.$touched && validCtrl.formulario.name.$error.required">Campo obrigatório!</span>
-
+                    <input class="form-control" type="text" name="name" ng-model="mainCtrl.tempFornecedor.name"
+                        ng-required="true" ng-pattern="/.+/">
+                    <div ng-messages="formulario.name.$error" ng-if="formulario.name.$touched || formulario.$submitted">
+                        <div ng-message="required">Campo obrigatório!</div>
+                        <div ng-message="pattern">Campo obrigatório!</div>
+                    </div>
                 </div>
             </div>
             <div class="form-group row">
                 <label for="email-input" class="col-2 col-form-label">Endereço de e-mail</label>
                 <div class="col-10">
-                    <input class="form-control" type="email" placeholder="gandalf@email.com"
-                        ng-model="mainCtrl.tempFornecedor.email" required
-                        oninvalid="this.setCustomValidity('Por favor, insira um e-mail válido. (exemplo@email.com)')"
-                        onchange="try{setCustomValidity('')}catch(e){}">
+                    <input class="form-control" type="email" name="email" placeholder="gandalf@email.com"
+                        ng-model="mainCtrl.tempFornecedor.email" ng-required="true"
+                        ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/">
+                    <div ng-messages="formulario.email.$error"
+                        ng-if="formulario.email.$touched || formulario.$submitted">
+                        <div ng-message="required">Campo obrigatório!</div>
+                        <div ng-message="pattern">Por favor, insira um e-mail válido. (exemplo@email.com)</div>
+                    </div>
                 </div>
             </div>
             <div class="form-group row">
@@ -31,20 +36,24 @@
             <div class="form-group row">
                 <label for="cnpj-input" class="col-2 col-form-label">CNPJ</label>
                 <div class="col-10">
-                    <input class="form-control cnpj" type="text" ng-model="mainCtrl.tempFornecedor.cnpj" required
-                        oninvalid="this.setCustomValidity('Por favor, insira um cnpj válido.')"
-                        onchange="try{setCustomValidity('')}catch(e){}">
+                    <input class="form-control cnpj" type="text" name="cnpj" ng-model="mainCtrl.tempFornecedor.cnpj"
+                        ng-required="true" ng-pattern="/^\d{2}\.\d{3}\/\d{4}-\d{2}$/">
+                    <div ng-messages="formulario.cnpj.$error" ng-if="formulario.cnpj.$touched || formulario.$submitted">
+                        <div ng-message="required">Campo obrigatório!</div>
+                        <div ng-message="pattern">Por favor, insira um cnpj válido. </div>
+                    </div>
                 </div>
             </div>
         </div>
 
 
         <div class="py-4">
-            <a href="#!/list-suppliers">
-                <button type="submit" class="btn btn-success"
-                    ng-click="mainCtrl.isCreate ? mainCtrl.createSupplier() : mainCtrl.updateSupplier()">
-                    {{ mainCtrl.isCreate ? 'Cadastrar' : 'Atualizar' }}
-                </button>
+
+            <button type="button" class="btn btn-success"
+                ng-click="mainCtrl.isCreate ? mainCtrl.createSupplier(formulario) : mainCtrl.updateSupplier(formulario)">
+                {{ mainCtrl.isCreate ? 'Cadastrar' : 'Atualizar' }}
+            </button>
+            <a ng-href='#!/list-suppliers'>
                 <button type="reset" class="btn btn-primary"
                     ng-click="mainCtrl.executeWhenButtonClicked()">Cancelar</button>
             </a>

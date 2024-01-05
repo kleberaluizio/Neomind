@@ -2,11 +2,17 @@ app.controller('SupplierController', function ($scope, $route, $location, fornec
 
     var self = this;
 
-    self.createSupplier = function () {
+    self.createSupplier = function (form) {
+        form.$submitted = true;
+        if(!form.$valid){
+            swal("Corrija os erros no formulário antes de cadastrar ou atualizar o fornecedor.", "", "error");
+            return;
+        }
         fornecedorService.createSupplier(self.tempFornecedor).then(function (response) {
             swal("Fornecedor cadastrado com sucesso!", "", "success");
             executeAfterHttpRequest();
         })
+        window.location.href = '#!/list-suppliers';
     }
 
     self.getAllSuppliers = function () {
@@ -17,11 +23,17 @@ app.controller('SupplierController', function ($scope, $route, $location, fornec
         })
     };
 
-    self.updateSupplier = function () {
+    self.updateSupplier = function (form) {
+        form.$submitted = true;
+        if(!form.$valid){
+            swal("Corrija os erros no formulário antes de cadastrar ou atualizar o fornecedor.", "", "error");
+            return;
+        }
         fornecedorService.updateSupplier(self.tempFornecedor, self.tempFornecedor.id).then(function (response) {
             swal("Fornecedor atualizado com sucesso!", "", "success");
             executeAfterHttpRequest();
         })
+        window.location.href = '#!/list-suppliers';
     }
 
     self.deleteFornecedor = function (id_fornecedor) {
