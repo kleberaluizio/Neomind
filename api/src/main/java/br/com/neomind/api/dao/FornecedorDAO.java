@@ -1,11 +1,9 @@
 package br.com.neomind.api.dao;
 
-import br.com.neomind.api.model.Fornecedor;
+import br.com.neomind.api.Entity.Fornecedor;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.NoResultException;
-import javax.persistence.Persistence;
 import java.util.List;
 
 public class FornecedorDAO {
