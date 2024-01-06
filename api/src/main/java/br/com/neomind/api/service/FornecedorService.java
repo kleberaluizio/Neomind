@@ -1,37 +1,48 @@
 package br.com.neomind.api.service;
 
-import br.com.neomind.api.model.Fornecedor;
+import br.com.neomind.api.Entity.Fornecedor;
 import br.com.neomind.api.dao.FornecedorDAO;
+import br.com.neomind.api.Entity.SupplierDTO;
 import br.com.neomind.api.util.JPAUtil;
-import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.inject.Named;
 import jakarta.ws.rs.core.Response;
 
 import java.util.List;
 
 public class FornecedorService {
 
-    private FornecedorDAO fornecedorDAO= new FornecedorDAO(JPAUtil.getEntityManager());
+    private FornecedorDAO supplierDAO = new FornecedorDAO(JPAUtil.getEntityManager());
 
     // CREATE
-    public Response createFornecedor(Fornecedor fornecedor) {
+    public Response createSupplier(SupplierDTO supplierDTO) {
 
+        Fornecedor f = supplierDAO.findByCnpj(supplierDTO.getCnpj());
+        if(f != null){
+            return Response
+                    .status(Response.Status.INTERNAL_SERVER_ERROR)
+                    .entity("Error: Cpnj supplier already register in our system.")
+                    .build();
+        }
+        Fornecedor fornecedor = convertDTOtoEntity(supplierDTO);
         try {
-            fornecedorDAO.create(fornecedor);
+            supplierDAO.create(fornecedor);
             return Response.status(Response.Status.CREATED).entity(fornecedor).build();
         } catch (Exception e){
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
+            return Response
+                    .status(Response.Status.INTERNAL_SERVER_ERROR)
+                    .entity(e.getMessage())
+                    .build();
         }
     }
 
+
     // READ
-    public List<Fornecedor> getAllFornecedores() {
-        return fornecedorDAO.findAll();
+    public List<Fornecedor> getAllSuppliers() {
+        return supplierDAO.findAll();
     }
 
-    public Response getFornecedorById(int id) {
+    public Response getSupplierById(int id) {
 
-        Fornecedor f = fornecedorDAO.findById(id);
+        Fornecedor f = supplierDAO.findById(id);
         if(f == null){
             return Response.status(Response.Status.NOT_FOUND).build();
         }
@@ -39,90 +50,54 @@ public class FornecedorService {
     }
 
     // UPDATE
-    public Response updateFornecedor(int id, Fornecedor fornecedor) {
+    public Response updateSupplier(int id, SupplierDTO supplierDTO) {
 
-        Fornecedor f = fornecedorDAO.findById(id);
-        fornecedor.setId(id);
+        Fornecedor supplier = supplierDAO.findById(id);
 
-        if(f.equals(fornecedor)) {
-            System.out.println("igual");
-        }
-        if(f == null){
-            System.out.println("VAZIOOO");
+        if(supplier == null){
             return Response.status(Response.Status.NOT_FOUND).build();
         }
 
+        Fornecedor updatedSupplier = convertDTOtoEntity(supplierDTO);
+        updatedSupplier.setId(id);
+
+        if(updatedSupplier.equals(supplier)){
+            return Response.status(Response.Status.OK).entity(updatedSupplier).build();
+        }
+
         try {
-            fornecedorDAO.update(fornecedor);
-            return Response.status(Response.Status.OK).entity(fornecedor).build();
+            supplierDAO.update(updatedSupplier);
+            return Response.status(Response.Status.OK).entity(updatedSupplier).build();
         } catch (Exception e){
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
         }
     }
 
-    //    public Response createFornecedor(FornecedorDTO fornecedorDTO) {
-//
-//        Fornecedor f = fornecedorDAO.findByCnpj(fornecedorDTO.getCnpj());
-//
-//        if(f != null || fornecedorDTO.getCnpj() == null){
-//            return Response.status(Response.Status.BAD_REQUEST)
-//                    .entity("Operação inválida, o cnpj informado já existe ou é nulo!")
-//                    .build();
-//       }
-//       Fornecedor novoFornecedor = new Fornecedor(fornecedorDTO);
-//        try {
-//            fornecedorDAO.create(novoFornecedor);
-//            return Response.status(Response.Status.CREATED).entity(novoFornecedor).build();
-//        } catch (Exception e){
-//            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
-//        }
-//    }
-//    public Response createFornecedor(FornecedorDTO fornecedorDTO) {
-//
-//        Fornecedor f = fornecedorDAO.findByCnpj(fornecedorDTO.getCnpj());
-//
-//        if(f != null || fornecedorDTO.getCnpj() == null){
-//            return Response.status(Response.Status.BAD_REQUEST)
-//                    .entity("Operação inválida, o cnpj informado já existe ou é nulo!")
-//                    .build();
-//        }
-//        if (fornecedorDTO == null){
-//            return Response.status(Response.Status.BAD_REQUEST)
-//                    .entity("Operação inválida, campos em branco")
-//                    .build();
-//        }
-//
-//        Fornecedor novoFornecedor = new Fornecedor(fornecedorDTO);
-//
-//        Boolean emailIsValid = Pattern.compile("^(.+)@(\\S+)$").matcher(novoFornecedor.getEmail()).matches();
-//        if(!emailIsValid){
-//            return Response.status(Response.Status.BAD_REQUEST)
-//                    .entity("Operação inválida, formato de e-mail inadequado!")
-//                    .build();
-//        }
-//
-//        try {
-//            fornecedorDAO.create(novoFornecedor);
-//            return Response.status(Response.Status.CREATED).entity(novoFornecedor).build();
-//        } catch (Exception e){
-//            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
-//        }
-//    }
-
-
     // DELETE
-    public Response deleteFornecedorById(int id) {
-        Fornecedor f = fornecedorDAO.findById(id);
+    public Response deleteSupplierById(int id) {
+        Fornecedor f = supplierDAO.findById(id);
 
         if (f == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
 
         try {
-            fornecedorDAO.delete(f);
+            supplierDAO.delete(f);
             return Response.status(Response.Status.OK).build();
         } catch (Exception e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
         }
+    }
+
+    private Fornecedor convertDTOtoEntity(SupplierDTO supplierDTO) {
+
+        Fornecedor supplier = new Fornecedor();
+
+        supplier.setName(supplierDTO.getName());
+        supplier.setEmail(supplierDTO.getEmail());
+        supplier.setComment(supplierDTO.getComment());
+        supplier.setCnpj(supplierDTO.getCnpj());
+
+        return supplier;
     }
 }

@@ -1,8 +1,7 @@
-package br.com.neomind.api.model;
+package br.com.neomind.api.Entity;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 
 import javax.persistence.*;
@@ -25,12 +24,6 @@ public class Fornecedor {
     private String cnpj;
 
     public Fornecedor(){
-    }
-    public Fornecedor(String name,String email,String comment,String cnpj) {
-        this.name = name;
-        this.email = email;
-        this.comment = comment;
-        this.cnpj = cnpj;
     }
 
     public int getId() {

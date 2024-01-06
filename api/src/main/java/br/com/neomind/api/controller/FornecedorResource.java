@@ -1,9 +1,8 @@
 package br.com.neomind.api.controller;
 
-import br.com.neomind.api.model.Fornecedor;
+import br.com.neomind.api.Entity.Fornecedor;
+import br.com.neomind.api.Entity.SupplierDTO;
 import br.com.neomind.api.service.FornecedorService;
-import jakarta.inject.Inject;
-import jakarta.inject.Named;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
@@ -20,22 +19,22 @@ public class FornecedorResource {
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response create(@Valid Fornecedor fornecedor){
-        return fornecedorService.createFornecedor(fornecedor);
+    public Response create(@Valid SupplierDTO SupplierDTO){
+        return fornecedorService.createSupplier(SupplierDTO);
     }
 
     //READ
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAll(){
-        List<Fornecedor> fornecedores = fornecedorService.getAllFornecedores();
+        List<Fornecedor> fornecedores = fornecedorService.getAllSuppliers();
         return Response.status(Response.Status.OK).entity(fornecedores).build();
     }
     @GET
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getById(@PathParam("id") int id){
-        return fornecedorService.getFornecedorById(id);
+        return fornecedorService.getSupplierById(id);
     }
 
     //UPDATE
@@ -43,8 +42,8 @@ public class FornecedorResource {
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response update(@PathParam("id") int id, Fornecedor fornecedor){
-        return fornecedorService.updateFornecedor(id, fornecedor);
+    public Response update(@PathParam("id") int id, SupplierDTO supplierDTO){
+        return fornecedorService.updateSupplier(id, supplierDTO);
     }
 
     //DELETE
@@ -52,7 +51,7 @@ public class FornecedorResource {
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response deleteFornecedor(@PathParam("id") int id) {
-        return fornecedorService.deleteFornecedorById(id);
+        return fornecedorService.deleteSupplierById(id);
     }
 
 }

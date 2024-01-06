@@ -1,7 +1,7 @@
 <div class="text-center">
     <h1 class="text-center p-4">Lista de Fornecedores</h1>
 
-    <div class="container" ng-init="getAllFornecedores()">
+    <div class="container">
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -13,15 +13,18 @@
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="fornecedor in fornecedores | orderBy: 'name'">
-                    <td>{{ fornecedor.name}}</td>
+                <tr ng-repeat="fornecedor in mainCtrl.fornecedores | orderBy: 'name'">
+                    <td>{{ fornecedor.name }}</td>
                     <td>{{ fornecedor.email }}</td>
                     <td>{{ fornecedor.comment }}</td>
                     <td>{{ fornecedor.cnpj }}</td>
                     <td class="text-center">
-                        <button type="button" value="Update"
-                                ng-click="main.prepareToUpdate(fornecedor)" class="btn btn-warning">Editar</button>
-                        <button type="button" value="Delete" ng-click="deleteFornecedor(fornecedor.id)"
+
+                        <a href="#!/register"><button type="button"
+                                ng-click="mainCtrl.prepareToUpdate(fornecedor);"
+                                class="btn btn-warning">Editar</button>
+                        </a>
+                        <button type="button" value="Delete" ng-click="mainCtrl.deleteFornecedor(fornecedor.id)"
                             class="btn btn-danger">Excluir</button>
                     </td>
                 </tr>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="fornecedor-neomind" >
+<html lang="en" ng-app="fornecedor-neomind">
 
 <head>
     <meta charset="UTF-8">
@@ -7,79 +7,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="assets/css/style.css">
     <script src="lib/angular.min.js"></script>
     <script src="lib/angular-route.min.js"></script>
+    <script src="lib/angular-messages.min.js"></script>
 
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/cleave.js/1.0.2/cleave.min.js"></script>
 
-    <script src="app.js"></script>
+    <script src="app/app.js"></script>
     <script src="app/service/fornecedor.service.js"></script>
     <script src="app/controller/main.controller.js"></script>
+    <script src="app/controller/validation.controller.js"></script>
 
 </head>
 
-<body ng-controller="SupplierController as main">
+<body ng-controller="SupplierController as mainCtrl">
 
-    <header ng-include="'app/components/header.html'"></header>
+    <header ng-include="'app/components/header.template.html'"></header>
 
-    <fornecedores ng-include="'app/components/fornecedores.html'"></fornecedores>
+    <span class="row">
+        <sidebar class="sidebar col-2" ng-include="'app/components/sidebar.template.html'"></sidebar>
+        <div class="col-1"></div>
+        <main class="col-8" ng-view></main>
+    </span>
 
-    <!-- 
-    <cadastrar ng-include="'app/components/cadastrar.html'"></cadastrar>
-    -->
-    <div class="container">
-        <h1 class="text-center p-4">Cadastro e atualização</h1>
-
-        <form name="formulario">
-            <div class="inputs row gap-2">
-                <div class="form-group row">
-                    <label for="nome-input" class="col-2 col-form-label">Nome do Fornecedor</label>
-                    <div class="col-10">
-                        <input class="form-control" type="text" ng-model="tempFornecedor.name" required
-                            oninvalid="this.setCustomValidity('Campo obrigatório!')"
-                            onchange="try{setCustomValidity('')}catch(e){}">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="email-input" class="col-2 col-form-label">Endereço de e-mail</label>
-                    <div class="col-10">
-                        <input class="form-control" type="email" placeholder="gandalf@email.com"
-                            ng-model="tempFornecedor.email" required
-                            oninvalid="this.setCustomValidity('Por favor, insira um e-mail válido. (exemplo@email.com)')"
-                            onchange="try{setCustomValidity('')}catch(e){}">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="comment-input" class="col-2 col-form-label">Comentário</label>
-                    <div class="col-10">
-                        <input class="form-control" type="text" ng-model="tempFornecedor.comment">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="cnpj-input" class="col-2 col-form-label">CNPJ</label>
-                    <div class="col-10">
-                        <input class="form-control cnpj" type="text" ng-model="tempFornecedor.cnpj" required
-                            oninvalid="this.setCustomValidity('Por favor, insira um cnpj válido.')"
-                            onchange="try{setCustomValidity('')}catch(e){}" pattern=".{14}">
-                    </div>
-                </div>
-                <input type="hidden" ng-model="tempFornecedor.id">
-            </div>
-
-
-            <div class="py-4">
-                <button type="submit" id="insertFornecedor" value="submit" ng-click="createOrUpdateFornecedor()"
-                    class="btn btn-success">{{buttonTitle}}</button>
-                <button type="reset" class="btn btn-primary" ng-click="cleanData()">Cancelar</button>
-            </div>
-        </form>
-    </div>
-    
-    
-    <footer ng-include="'app/components/footer.html'"></footer>
-
+    <footer ng-include="'app/components/footer.template.html'"></footer>
 
 </body>
 
