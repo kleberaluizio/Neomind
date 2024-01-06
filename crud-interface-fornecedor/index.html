@@ -20,7 +20,7 @@
 
 </head>
 
-<body ng-controller="SupplierController as main">
+<body ng-controller="SupplierController as ctrl">
 
     <header ng-include="'app/components/header.html'"></header>
 
@@ -72,7 +72,7 @@
             <div class="py-4">
                 <button type="submit" id="insertFornecedor" value="submit" ng-click="createOrUpdateFornecedor()"
                     class="btn btn-success">{{buttonTitle}}</button>
-                <button type="reset" class="btn btn-primary" ng-click="cleanData()">Cancelar</button>
+                <button type="reset" class="btn btn-primary" ng-click="ctrl.cleanData()">Cancelar</button>
             </div>
         </form>
     </div>

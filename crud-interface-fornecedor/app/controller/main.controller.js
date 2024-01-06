@@ -26,7 +26,7 @@ app.controller('SupplierController', function ($scope, $http, $location, fornece
             })
         }
 
-        $scope.cleanData();
+        self.cleanData();
         document.getElementById("insertFornecedor").setAttribute("value","submit");
     }
 
@@ -45,15 +45,15 @@ app.controller('SupplierController', function ($scope, $http, $location, fornece
         })
     };
 
-    $scope.deleteFornecedor = function(id_fornecedor){
+    self.deleteFornecedor = function(id_fornecedor){
         fornecedorService.deleteSupplier(id_fornecedor).then(function (response) {
             $scope.getAllFornecedores();
             swal("Exclusão realizada com sucesso!", "", "success");
-            $scope.cleanData();
+            self.cleanData();
         })
     }
     
-    $scope.cleanData = function (){
+    self.cleanData = function (){
         $scope.tempFornecedor = [];
         $scope.buttonTitle = 'Enviar';
     }
