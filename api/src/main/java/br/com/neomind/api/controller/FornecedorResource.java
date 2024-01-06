@@ -3,6 +3,7 @@ package br.com.neomind.api.controller;
 import br.com.neomind.api.Entity.Fornecedor;
 import br.com.neomind.api.Entity.SupplierDTO;
 import br.com.neomind.api.service.FornecedorService;
+import jakarta.inject.Inject;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
@@ -54,4 +55,7 @@ public class FornecedorResource {
         return fornecedorService.deleteSupplierById(id);
     }
 
+    public void setFornecedorService(FornecedorService fornecedorService) {
+        this.fornecedorService = fornecedorService;
+    }
 }
