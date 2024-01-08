@@ -12,7 +12,6 @@ public class FornecedorService {
 
     private FornecedorDAO supplierDAO = new FornecedorDAO(JPAUtil.getEntityManager());
 
-    // CREATE
     public Response createSupplier(SupplierDTO supplierDTO) {
 
         Fornecedor f = supplierDAO.findByCnpj(supplierDTO.getCnpj());
@@ -34,8 +33,6 @@ public class FornecedorService {
         }
     }
 
-
-    // READ
     public List<Fornecedor> getAllSuppliers() {
         return supplierDAO.findAll();
     }
@@ -49,7 +46,6 @@ public class FornecedorService {
         return Response.status(Response.Status.OK).entity(f).build();
     }
 
-    // UPDATE
     public Response updateSupplier(int id, SupplierDTO supplierDTO) {
 
         Fornecedor supplier = supplierDAO.findById(id);
@@ -73,7 +69,6 @@ public class FornecedorService {
         }
     }
 
-    // DELETE
     public Response deleteSupplierById(int id) {
         Fornecedor f = supplierDAO.findById(id);
 
